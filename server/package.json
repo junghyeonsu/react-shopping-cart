@@ -1,0 +1,12 @@
+{
+  "name": "shopping-cart-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "json-server": "^0.17.0"
+  },
+  "scripts": {
+    "server": "json-server --watch db.json --port 3003"
+  }
+}
