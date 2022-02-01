@@ -84,7 +84,7 @@
       }
     },
     {
-      "products": {
+      "product": {
         "price": 10000,
         "name": "치킨",
         "imageUrl": "http://example.com/chicken.jpg"
