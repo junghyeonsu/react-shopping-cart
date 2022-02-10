@@ -5,13 +5,19 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest --watchAll --verbose"
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "vite-babel-plugin": "^0.0.2"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.4.0",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
@@ -23,6 +29,11 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "given2": "^2.1.7",
+    "jest": "^27.5.1",
+    "jest-plugin-context": "^2.9.0",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.5.0",
     "typescript": "^4.5.4",
     "vite": "^2.8.0"
   }
