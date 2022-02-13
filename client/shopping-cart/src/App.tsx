@@ -1,9 +1,20 @@
-function App() {
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+import DefaultLayout from './layouts/DefaultLayout';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+
+export default function App() {
   return (
-    <div className="App">
-      <p>Hello Vite + React!</p>
-    </div>
+    <Routes>
+      <Route path="/" element={<DefaultLayout />}>
+        {/* https://github.com/remix-run/react-router/issues/8610 */}
+        <Route index element={<Navigate to="/products" />} />
+        <Route path="products" element={<Home />} />
+        <Route path="carts" element={<Home />} />
+        <Route path="orders" element={<Home />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
-
-export default App;
