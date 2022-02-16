@@ -1,0 +1,48 @@
+{
+  "name": "shopping-cart-client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "server:prepare": "cd ../server && yarn && cd ../client",
+    "server": "cd ../server && yarn server && cd ../client",
+    "server:first": "yarn server:prepare && yarn server",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.7.2",
+    "classnames": "^2.3.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.34.14",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/runtime": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.0",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "@vitejs/plugin-react": "^1.1.4",
+    "babel-jest": "^27.4.6",
+    "babel-loader": "^8.2.3",
+    "cross-fetch": "^3.1.5",
+    "jest": "^27.5.1",
+    "nock": "^13.2.4",
+    "react-test-renderer": "^17.0.2",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5",
+    "vite": "^2.7.13"
+  }
+}

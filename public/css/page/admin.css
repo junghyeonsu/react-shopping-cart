@@ -1,0 +1,39 @@
+.admin-page form {
+  margin: 20px 10px 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  text-align: center;
+  align-items: center;
+  border: 1px solid #aaa;
+}
+
+@media screen and (max-width: 800px) {
+  .admin-page form {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-page input {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.admin-page button[type='submit'] {
+  padding: 10px;
+  background-color: #eee;
+}
+.admin-page button[type='submit']:focus,
+.admin-page button[type='submit']:active,
+.admin-page button[type='submit']:hover {
+  padding: 10px;
+  background-color: #777;
+  color: #fff;
+}
+
+.admin-page .delete-button {
+  float: right;
+  padding: 10px;
+  flex: 0 0 50px;
+}

@@ -1,0 +1,52 @@
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+}
+
+.loading-indicator svg {
+  width: 40px;
+  height: 40px;
+  animation: rotate ease-in-out 2.5s infinite forwards;
+  vertical-align: middle;
+}
+.loading-indicator.big {
+  flex-grow: 1;
+  align-self: center;
+  flex-direction: column;
+}
+.loading-indicator.big svg {
+  width: 70px;
+  height: 70px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-page__description {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.empty-page__back-button {
+  display: block;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #666;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+}

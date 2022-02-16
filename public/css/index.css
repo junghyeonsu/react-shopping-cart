@@ -1,0 +1,33 @@
+@import './common/index.css';
+@import './page/index.css';
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.divide-line {
+  width: 100%;
+  border: 2px solid black;
+}
+
+.divide-line-gray {
+  width: 100%;
+  border: 2px solid #aaaaaa;
+}
+
+.divide-line-thin {
+  width: 100%;
+  border: 1px solid #aaaaaa;
+}

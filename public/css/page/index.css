@@ -1,0 +1,18 @@
+@import './cart.css';
+@import './order.css';
+@import './product.css';
+@import './admin.css';
+
+.page {
+  padding: 24px 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1000px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contents {
+  flex-grow: 1;
+}
