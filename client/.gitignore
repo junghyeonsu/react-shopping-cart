@@ -1,0 +1,13 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+.idea
+
+requirements.md
+
+__snapshots__/
+
+coverage

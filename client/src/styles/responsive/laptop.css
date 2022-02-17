@@ -1,0 +1,26 @@
+@media only screen and (max-width: 1280px) {
+    /* Nav */
+    .nav-content {
+        padding: 0 20px;
+    }
+    .nav-title {
+        font-size: 32px;
+    }
+    .nav-button {
+        font-size: 20px;
+    }
+
+    /* Order */
+    .order-section {
+        padding: 24px 100px;
+    }
+
+    /* Cart */
+    .cart-section {
+        padding: 24px 100px;
+    }
+    .cart-name {
+        font-size: 18px;
+        max-width: 100px;
+    }
+}
