@@ -3,9 +3,57 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^16.11.24",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "axios": "^0.26.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "typescript": "^4.5.5",
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "server:prepare": "cd ../server && yarn && cd ../client",
     "server": "cd ../server && yarn server && cd ../client",
     "server:first": "yarn server:prepare && yarn server"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/redux-mock-store": "^1.0.3",
+    "msw": "^0.38.1",
+    "redux-mock-store": "^1.5.4"
   }
 }
