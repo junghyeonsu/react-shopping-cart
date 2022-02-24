@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "types": ["cypress", "@testing-library/cypress"],
+    "types": [
+      "cypress",
+      "@testing-library/cypress",
+      "vite-plugin-svgr/client",
+    ],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
