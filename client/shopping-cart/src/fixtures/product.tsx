@@ -3,7 +3,7 @@ const product = {
     id: 1,
     price: 10000,
     name: '치킨',
-    imageUrl: 'http://example.com/chicken.jpg',
+    imageUrl: 'https://fakeimg.pl/300/',
   },
 };
 
