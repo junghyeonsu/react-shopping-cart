@@ -4,6 +4,11 @@
   color: white;
   width: 100%;
   padding: 20px;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  cursor: not-allowed;
 }
 
 .primary-button-small {
@@ -11,4 +16,5 @@
   font-size: 20px;
   color: white;
   padding: 14px 28px;
+  cursor: pointer;
 }

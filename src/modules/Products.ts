@@ -20,7 +20,7 @@ const productsSlice = createSlice({
         state.productsList = [...state.productsList];
       })
       .addCase(getProducts.fulfilled, (state, action) => {
-        state.productsList.push(...state.productsList, ...action.payload);
+        state.productsList = [...action.payload];
       })
       .addCase(getProducts.rejected, (_, action) => {
         console.log(action.error.message);

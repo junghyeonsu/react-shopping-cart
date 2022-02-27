@@ -32,9 +32,6 @@
   padding: 16px 30px;
 }
 
-.cart-right-section__bottom {
-}
-
 .cart-title {
   display: flex;
   align-items: center;
@@ -57,4 +54,10 @@
 .cart-price {
   color: #333333;
   align-self: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .cart-section {
+    padding: 24px;
+  }
 }

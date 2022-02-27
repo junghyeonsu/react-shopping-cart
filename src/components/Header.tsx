@@ -12,7 +12,7 @@ function Header() {
         <Link to="/cart" style={{ cursor: "pointer" }}>
           <button className="nav-button">장바구니</button>
         </Link>
-        <Link to="/order" style={{ cursor: "pointer" }}>
+        <Link to="/orderlist" style={{ cursor: "pointer" }}>
           <button className="nav-button">주문목록</button>
         </Link>
       </div>

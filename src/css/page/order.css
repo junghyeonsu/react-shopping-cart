@@ -46,9 +46,6 @@
   padding: 16px 30px;
 }
 
-.order-right-section__bottom {
-}
-
 .order-list {
   display: flex;
   flex-direction: column;
@@ -87,4 +84,10 @@
 
 .order-detail-title {
   font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .order-section {
+    padding: 24px;
+  }
 }

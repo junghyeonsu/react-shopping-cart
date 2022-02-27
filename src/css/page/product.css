@@ -16,9 +16,6 @@
   font-size: 12px;
 }
 
-.product-info__price {
-}
-
 .product-detail-container {
   display: flex;
   flex-direction: column;

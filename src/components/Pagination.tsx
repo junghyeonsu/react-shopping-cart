@@ -5,10 +5,10 @@ type PaginationState = {
 };
 
 function Pagination({ total, limit, setPage }: PaginationState) {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(total / limit); i++) {
-    pageNumbers.push(i);
-  }
+  const pageNumbers: Array<number> = Array.from(
+    { length: Math.ceil(total / limit) },
+    (_, index) => ++index
+  );
 
   const handlePage = (number: number) => {
     setPage(number);
