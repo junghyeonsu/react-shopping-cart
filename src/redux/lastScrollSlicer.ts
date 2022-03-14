@@ -26,6 +26,7 @@ export const LastScrollSlice = createSlice({
     ) => {
       state.page = page
       state.scroll = scroll
+      return state
     },
   },
 })

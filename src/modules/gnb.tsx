@@ -10,7 +10,7 @@ const Gnb = () => (
         <NavLink className="nav-button" to="/cart">
           장바구니
         </NavLink>
-        <NavLink className="nav-button" to="/ordered">
+        <NavLink className="nav-button" to="/orders">
           주문목록
         </NavLink>
         <NavLink className="nav-button" to="/admin">

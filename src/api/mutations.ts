@@ -1,9 +1,4 @@
-import {
-  ProductRequest,
-  GetCartResponse,
-  GetOrderResponse,
-  Product,
-} from '@/dto'
+import { ProductRequest, OrderDetail, Order, Product } from '@/dto'
 import { MutationFunction, UseMutationOptions, useMutation } from 'react-query'
 import { fetcher } from './client'
 
@@ -29,32 +24,36 @@ export const useDeleteProduct = mutator<string, unknown, string>((id: string) =>
   }),
 )
 
-export const useAddCart = mutator<GetCartResponse, unknown, string>(
-  (id: string) =>
-    fetcher({
-      method: 'POST',
-      path: '/cart',
-      body: { id },
-    }),
-)
-export const useDeleteCart = mutator<string, unknown, string>((id: string) =>
+export const useAddCart = mutator<OrderDetail, unknown, string>((id: string) =>
   fetcher({
-    method: 'DELETE',
-    path: `/cart/${id}`,
+    method: 'POST',
+    path: '/cart',
+    body: { id },
   }),
 )
-export const useAddOrder = mutator<
-  GetOrderResponse,
+
+export const usePatchCart = mutator<
+  OrderDetail,
   unknown,
-  {
-    orderDetails: {
-      price: number
-      name: string
-      imageUrl: string
-      quantity: number
-    }[]
-  }
->(body =>
+  { id: string; quantity: number }
+>(({ id, quantity }) =>
+  fetcher({
+    method: 'PATCH',
+    path: `/cart/${id}`,
+    body: { quantity },
+  }),
+)
+
+export const useDeleteCarts = mutator<string, unknown, string[]>(
+  (ids: string[]) =>
+    fetcher({
+      method: 'DELETE',
+      path: `/cart`,
+      body: { ids },
+    }),
+)
+
+export const useAddOrder = mutator<Order, unknown, OrderDetail[]>(body =>
   fetcher({
     method: 'POST',
     path: '/orders',

@@ -1,6 +1,7 @@
 import { Product } from '@/dto'
-import useCartModal from '@/hooks/useCartModal'
+import useModal from '@/hooks/useModal'
 import { localeNumber } from '@/utils'
+import { SyntheticEvent } from 'react'
 
 const ProductDetail = ({
   item,
@@ -8,7 +9,11 @@ const ProductDetail = ({
 }: {
   item: Product
 }) => {
-  const { modalComponent, showModal } = useCartModal()
+  const { setModal } = useModal()
+  const addToCart = (e: SyntheticEvent) => {
+    e.stopPropagation()
+    setModal('cart_add', item)
+  }
 
   return (
     <div className="contents product-detail-container">
@@ -26,12 +31,11 @@ const ProductDetail = ({
         </div>
         <button
           className="product-detail-button flex-center mt-20"
-          onClick={() => showModal(item)}
+          onClick={addToCart}
         >
           장바구니
         </button>
       </div>
-      {modalComponent}
     </div>
   )
 }

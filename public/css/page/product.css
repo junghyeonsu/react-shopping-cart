@@ -59,3 +59,27 @@
   font-size: 24px;
   color: white;
 }
+
+.product-item.deleted .product-item__image:after {
+  content: 'X';
+  position: absolute;
+  display: block;
+  top: calc(50% - 2rem);
+  left: 0;
+  right: 0;
+  color: #000;
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.product-item.deleted .product-info__name,
+.product-item.deleted .product-info__price {
+  text-decoration: line-through;
+  color: #c33;
+}
+
+.product-item__image {
+  display: block;
+  position: relative;
+}

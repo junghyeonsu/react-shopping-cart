@@ -1,10 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
+import CartReducer from './cartSlicer'
 import LastScrollReducer from './lastScrollSlicer'
+import OrderReducer from './orderSlicer'
+import ModalReducer from './modalSlicer'
 
 export const store = configureStore({
   reducer: {
     lastScrollInfo: LastScrollReducer,
+    cart: CartReducer,
+    order: OrderReducer,
+    modal: ModalReducer,
   },
 })
 

@@ -1,4 +1,4 @@
-import OrderConfirm from '@/components/cart/order'
+import OrderConfirm from '@/components/order'
 import Header from '@/modules/header'
 
 const OrderPage = () => {

@@ -1,13 +1,19 @@
 import { Fragment } from 'react'
-import { useGetCarts } from '@/api'
 import { getTotalPrice, getTotalQuantity, localeNumber } from '@/utils'
 import EmptyPage from '@/modules/emptyPage'
 import OrderConfirmItem from './orderItem'
+import { useAppSelector } from '@/redux/store'
+import useModal from '@/hooks/useModal'
 
 const OrderConfirm = () => {
-  const { data } = useGetCarts()
+  const { setModal } = useModal()
+  const { items } = useAppSelector(state => state.order)
 
-  if (!data)
+  const handleConfirm = () => {
+    setModal('order_confirm', items)
+  }
+
+  if (!items?.length)
     return (
       <EmptyPage
         description="결제할 상품이 없어요."
@@ -16,15 +22,15 @@ const OrderConfirm = () => {
       />
     )
 
-  const totalQuantity = getTotalQuantity(data)
-  const totalPrice = localeNumber(getTotalPrice(data))
+  const totalQuantity = getTotalQuantity(items)
+  const totalPrice = localeNumber(getTotalPrice(items))
 
   return (
     <div className="contents flex">
       <section className="order-left-section">
         <h3 className="order-title">주문 상품({totalQuantity}건)</h3>
 
-        {data.map((product, i) => (
+        {items.map((product, i) => (
           <Fragment key={i}>
             <hr className={`divide-line-${i === 0 ? 'gray' : 'thin'} mt-10`} />
             <OrderConfirmItem {...product} />
@@ -44,7 +50,10 @@ const OrderConfirm = () => {
             <span className="highlight-text">{totalPrice}원</span>
           </div>
           <div className="flex-center mt-30 mx-10">
-            <button className="primary-button flex-center">
+            <button
+              className="button button--success button--full flex-center"
+              onClick={handleConfirm}
+            >
               {totalPrice}원 결제하기
             </button>
           </div>

@@ -37,6 +37,9 @@
 .self-start {
   align-self: flex-start;
 }
+.self-center {
+  align-self: center;
+}
 
 .flex-center {
   display: flex;
@@ -105,22 +108,6 @@
 
 .p-20 {
   padding: 20px;
-}
-
-.px-10 {
-  padding: 10px 0;
-}
-
-.px-20 {
-  padding: 20px 0;
-}
-
-.py-10 {
-  padding: 0 10px;
-}
-
-.py-20 {
-  padding: 0 20px;
 }
 
 .mt-10 {

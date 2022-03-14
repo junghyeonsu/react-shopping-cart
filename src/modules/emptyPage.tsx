@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from '@/modules/link'
 
 const EmptyPage = ({
   description,

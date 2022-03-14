@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Routes, Route, useLocation, matchPath } from 'react-router-dom'
-import Gnb from './components/gnb'
+import Gnb from './modules/gnb'
 import Order from './pages/order'
-import OrderedDetail from './pages/orderedDetail'
-import OrderedList from './pages/orderedList'
+import OrderDetail from './pages/orderDetail'
+import OrderList from './pages/orderList'
 import ProductDetail from './pages/productDetail'
 import ProductList from './pages/productList'
 import Admin from './pages/admin'
@@ -12,14 +12,15 @@ import { useAppSelector } from '@/redux/store'
 import { useDispatch } from 'react-redux'
 import { saveLastScroll } from '@/redux/lastScrollSlicer'
 import { debounce, promiseDelay } from '@/utils'
+import Modal from './components/modal'
 
 export const routePaths = {
   '/': ProductList,
   '/products/:id': ProductDetail,
   '/cart': Cart,
   '/order': Order,
-  '/ordered': OrderedList,
-  '/ordered/:id': OrderedDetail,
+  '/orders': OrderList,
+  '/orders/:id': OrderDetail,
   '/admin': Admin,
 }
 
@@ -77,6 +78,7 @@ const App = () => {
           <Route key={path} path={path} element={<Elem />} />
         ))}
       </Routes>
+      <Modal />
     </>
   )
 }

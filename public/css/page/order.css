@@ -71,8 +71,14 @@
   align-items: center;
   width: 100%;
   padding: 20px 40px;
-
   border: 1px solid #aaaaaa;
+}
+.order-list-item__image {
+  width: 100px;
+  height: 100px;
+}
+
+.order-list-item.deleted {
 }
 
 .order-detail-container {

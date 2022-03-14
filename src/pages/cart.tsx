@@ -1,4 +1,4 @@
-import CartForm from '@/components/cart/form'
+import CartForm from '@/components/cart'
 import Header from '@/modules/header'
 
 const ShoppingCartPage = () => (

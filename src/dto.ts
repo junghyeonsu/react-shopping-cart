@@ -1,9 +1,9 @@
-type Timestamp = {
+export type Timestamp = {
   seconds: number
   nanoseconds: number
 }
 
-export interface Product {
+export type Product = {
   id: string
   price: number
   name: string
@@ -13,25 +13,23 @@ export interface Product {
 
 export type ProductRequest = Omit<Product, 'id' | 'createdAt'>
 
-export interface PostCartRequest {
+export type PostCartRequest = {
   productId: string
 }
 
-export interface OrderDetail {
+export type OrderDetail = {
+  id: string
   productId: string
   product: Product
   quantity: number
   updatedAt: Timestamp
+  serverMessage?: string
 }
 
-export interface Order {
+export type Order = {
   id: string
   orderDetails: OrderDetail[]
+  createdAt: Timestamp
 }
 
-export interface GetOrderResponse extends Order {}
-
-export interface PostOrderResponse {
-  orderDetails: OrderDetail[]
-}
-export interface GetCartResponse extends OrderDetail {}
+export type ValuePick<T, U extends keyof T> = T[U]

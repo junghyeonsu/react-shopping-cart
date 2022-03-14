@@ -1,22 +1,22 @@
-import { RefObject, useRef } from 'react'
-import { InfiniteData } from 'react-query'
+import { queryClient, QueryKeys } from '@/api'
+import useInfiniteScroll from '@/hooks/useInfiniteScroll'
+import { useEffect, useRef } from 'react'
+import { UseInfiniteQueryResult } from 'react-query'
 import EmptyPage from './emptyPage'
 import LoadingIndicator from './loadingIndicator'
 
 const InfiniteList = <T extends unknown>({
   wrapperClass,
   Item,
-  fetcher,
+  queryKey,
+  useFetch,
   empty,
   ...itemProps
 }: {
   wrapperClass: string
   Item: (...args: any) => JSX.Element
-  fetcher: (fetchMoreEl: RefObject<HTMLDivElement | null>) => {
-    data: InfiniteData<T[]> | undefined
-    isLoading: boolean
-    isFetchingNextPage: boolean
-  }
+  queryKey: QueryKeys
+  useFetch: () => UseInfiniteQueryResult<T[], unknown>
   empty: {
     description: string
     backTo?: string
@@ -24,9 +24,21 @@ const InfiniteList = <T extends unknown>({
   }
   [key: string]: any
 }) => {
+  const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
+    useFetch()
   const fetchMoreEl = useRef<HTMLDivElement | null>(null)
-  const { data, isLoading, isFetchingNextPage } = fetcher(fetchMoreEl)
+  const { intersecting } = useInfiniteScroll(fetchMoreEl)
   const fetchMore = <div className="fetch-more" ref={fetchMoreEl} />
+
+  useEffect(() => {
+    if (intersecting && hasNextPage) fetchNextPage()
+  }, [intersecting, hasNextPage])
+
+  useEffect(() => {
+    return () => {
+      queryClient.cancelQueries(queryKey)
+    }
+  }, [])
 
   if (isLoading)
     return (
@@ -48,7 +60,7 @@ const InfiniteList = <T extends unknown>({
       <div className={wrapperClass}>
         {data?.pages.map((list, i) =>
           list?.map((item, j) => (
-            <Item item={item} {...itemProps} key={`${i}_${j}`} />
+            <Item item={item} index={j} {...itemProps} key={`${i}_${j}`} />
           )),
         )}
       </div>

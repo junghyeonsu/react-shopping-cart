@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { store } from './redux/store'
 import { queryClient } from './api/client'
 import App from './app'
@@ -16,6 +17,7 @@ ReactDOM.render(
         <BrowserRouter>
           <App />
         </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,

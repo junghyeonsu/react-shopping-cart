@@ -1,6 +1,10 @@
+import { Timestamp } from './dto'
+
 const getTotal = (reducer: (item: any) => number) => (data?: any[]) =>
   data?.reduce((r, c) => r + reducer(c), 0) || 0
-export const getTotalPrice = getTotal(item => item.price * item.quantity)
+export const getTotalPrice = getTotal(
+  item => item.product.price * item.quantity,
+)
 export const getTotalQuantity = getTotal(item => item.quantity)
 
 export const iterToObj = (data: Iterable<[string, any] | string>) => {
@@ -84,3 +88,13 @@ export const throttle = (cb: any, delay: number) => {
   }
   return (...args: any) => window.requestAnimationFrame(later.bind(null, args))
 }
+
+export const getDateString = ({ seconds, nanoseconds }: Timestamp) =>
+  new Date(seconds * 1e3 + nanoseconds * 1e-6).toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit',
+  })

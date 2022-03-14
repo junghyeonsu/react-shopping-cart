@@ -1,30 +1,35 @@
 import { SyntheticEvent } from 'react'
-import { Link } from 'react-router-dom'
 import { Product } from '@/dto'
 import { localeNumber } from '@/utils'
+import useModal from '@/hooks/useModal'
+import Link from '@/modules/link'
+import classNames from 'classnames'
 
 const ProductItem = ({
   item,
-  item: { id, price, name, imageUrl },
-  showModal,
+  item: { id, price, name, imageUrl, createdAt },
+  productId,
   hideButton = false,
 }: {
   item: Product
-  showModal?: (item: Product) => void
+  productId: string
   hideButton: boolean
 }) => {
+  const { setModal } = useModal()
   const addToCart = (e: SyntheticEvent) => {
     e.stopPropagation()
-    showModal && showModal(item)
+    setModal('cart_add', item)
   }
+  const pId = id || productId || ''
+  const isDeleted = !createdAt
 
   return (
-    <div className="product-item">
-      <Link to={`/products/${id}`}>
+    <div className={classNames('product-item', { deleted: isDeleted })}>
+      <Link className="product-item__image" to={`/products/${pId}`}>
         <img src={imageUrl} alt={name} />
       </Link>
       <div className="flex justify-between p-5">
-        <Link to={`/products/${id}`}>
+        <Link to={`/products/${pId}`}>
           <div className="product-info">
             <span className="product-info__name">{name}</span>
             <span className="product-info__price">{localeNumber(price)}원</span>
@@ -39,4 +44,5 @@ const ProductItem = ({
     </div>
   )
 }
+
 export default ProductItem

@@ -1,6 +1,6 @@
 import { QueryClient } from 'react-query'
 
-export type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE'
+export type METHOD = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 
 export const enum QueryKeys {
   products = 'products',

@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest'
 import reducer, { saveLastScroll } from './lastScrollSlicer'
 
 test('lastScrollSlicer', () => {

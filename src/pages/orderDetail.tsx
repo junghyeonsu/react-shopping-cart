@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom'
 import { useGetOrder } from '@/api'
 import Header from '@/modules/header'
-import OrderedDetails from '@/components/ordered/details'
-import PaymentInfo from '@/components/ordered/paymentInfo'
+import OrdersDetails from '@/components/orders/details'
+import PaymentInfo from '@/components/orders/paymentInfo'
 
-const OrderedDetailPage = () => {
+const OrderDetailPage = () => {
   const { id } = useParams()
   const { data } = useGetOrder(id as string)
   if (!data || !id) return null
@@ -13,10 +13,10 @@ const OrderedDetailPage = () => {
     <section className="page">
       <Header title="주문내역상세" />
       <div className="contents">
-        <OrderedDetails {...data} />
+        <OrdersDetails item={data} />
         <PaymentInfo details={data.orderDetails} />
       </div>
     </section>
   )
 }
-export default OrderedDetailPage
+export default OrderDetailPage
