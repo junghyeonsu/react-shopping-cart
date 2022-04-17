@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
-import { Product } from 'src/types/dto'
+import { ProductPageProductData } from '../..//core/redux/service/product'
 import ProductCard from './ProductCard'
 
-const ProductCardList = ({ products }: { products: Product[] }) => {
+const ProductCardList = ({ products }: { products: ProductPageProductData[] }) => {
   return (
     <ProductCardContainer>
       {products.map((product) => (

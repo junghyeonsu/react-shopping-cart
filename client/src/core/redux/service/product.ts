@@ -1,16 +1,37 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Product } from '../../../types/dto'
-import { ListResponse } from './common'
+import axios from 'axios'
+import { Cart, Product } from '../../../types/dto'
+import emptySplitApi, { ListResponse } from './common'
 
-export const productApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3003' }),
-  tagTypes: ['Product'],
+export type ProductPageProductData = Product & { isCartEntered: boolean }
+
+export const productEndPoint = emptySplitApi.injectEndpoints({
   endpoints: (builder) => ({
-    listProduct: builder.query<ListResponse<Product>, number | void>({
-      query: (page = 1) => `products?page=${page}`,
-      providesTags: (result, error, arg) => (result ? [...result.data.map(({ id }) => ({ type: 'Product' as const, id })), 'Product'] : ['Product']),
+    productList: builder.query<ListResponse<ProductPageProductData>, number | void>({
+      async queryFn(page = 1, _queryApi, _extraOptions) {
+        const productRequest = axios.get<ListResponse<Product>>(`http://localhost:3003/products?page=${page}`)
+        const cartRequest = axios.get<Cart[]>('http://localhost:3003/carts')
+        const [productResponse, cartRespnose] = await Promise.all([productRequest, cartRequest])
+
+        const products = productResponse.data
+        const carts = cartRespnose.data
+        if (!products || !carts) {
+          throw new Error()
+        }
+
+        const cartIdSet = new Set([...carts.map((cart) => cart.id)])
+
+        const productListData: ProductPageProductData[] = products.data.map((product) => ({
+          ...product,
+          isCartEntered: cartIdSet.has(product.id) ? true : false,
+        }))
+
+        return {
+          data: { ...products, data: productListData },
+        }
+      },
+      providesTags: (result) => (result ? [...result.data.map(({ id }) => ({ type: 'Product' as const, id })), 'Product'] : ['Product']),
     }),
   }),
 })
 
-export const { useListProductQuery } = productApi
+export const { useProductListQuery } = productEndPoint

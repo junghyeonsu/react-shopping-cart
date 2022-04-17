@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import colors from '../../constants/colors'
 
 const MAX_PAGE_PER_SCREEN = 10
@@ -30,7 +30,7 @@ const ProductPaging = ({ currentPage, maxPage, setPage }: ProductPagingProps) =>
     <ProductPagingContainer>
       {isExistPrevPage && (
         <ProductPageButtonContainer key={'page-next' + (currentStartPage - 1)} clicked={false} onClick={changeProductPage(currentStartPage - 1)}>
-          {'>'}
+          {'<'}
         </ProductPageButtonContainer>
       )}
       {pages.map((page) => (

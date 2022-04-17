@@ -12,7 +12,7 @@ const Nav = () => {
       </NavTitleContainer>
       <NavButtonContainer>
         <RouteButton navigateRoute="cart">
-          <NavButton>장바구나</NavButton>
+          <NavButton>장바구니</NavButton>
         </RouteButton>
         <RouteButton navigateRoute="orderList">
           <NavButton>주문목록</NavButton>
@@ -58,4 +58,11 @@ const NavButton = styled.button`
   color: ${colors.white500};
   font-size: 24px;
   font-weight: 500;
+
+  span {
+    margin-left: 4px;
+    padding: 2px 4px;
+    border: 1px solid ${colors.white500};
+    border-radius: 4px;
+  }
 `

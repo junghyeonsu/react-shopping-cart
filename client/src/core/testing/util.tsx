@@ -1,19 +1,32 @@
 import { render } from '@testing-library/react'
 import { ReactElement } from 'react'
 import { AnyAction, configureStore, EnhancedStore, Middleware, Reducer, Store } from '@reduxjs/toolkit'
-import { productApi } from '../redux/service/product'
+import { productEndPoint } from '../redux/service/product'
+import { cartApi } from '../redux/service/cart'
+import { orderEndPoint } from '../redux/service/order'
+import cartReducer from '../redux/slice/cart'
+
 import { Provider } from 'react-redux'
 import { act } from '@testing-library/react-hooks'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { MemoryRouter } from 'react-router-dom'
 
 function Wrapper({ children }: { children: ReactElement }) {
   const store = configureStore({
     reducer: {
-      [productApi.reducerPath]: productApi.reducer,
+      [productEndPoint.reducerPath]: productEndPoint.reducer,
+      [orderEndPoint.reducerPath]: orderEndPoint.reducer,
+      [cartApi.reducerPath]: cartApi.reducer,
+      cart: cartReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(cartApi.middleware),
   })
 
-  return <Provider store={store}>{children}</Provider>
+  return (
+    <Provider store={store}>
+      <MemoryRouter>{children}</MemoryRouter>
+    </Provider>
+  )
 }
 
 const customRender = (ui: ReactElement, options: object = {}) =>

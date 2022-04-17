@@ -3,16 +3,16 @@
 */
 
 export interface Product {
-  id: number;
-  price: number;
-  name: string;
-  imageUrl: string;
+  id: number
+  price: number
+  name: string
+  imageUrl: string
 }
 
 export interface GetProdutResponse extends Product {}
 
 export interface PostProductRequest {
-  product: Omit<Product, "id">;
+  product: Omit<Product, 'id'>
 }
 
 /*
@@ -20,14 +20,14 @@ export interface PostProductRequest {
 */
 
 export interface Cart {
-  id: number;
-  product: Product;
+  id: number
+  product: Product
 }
 
 export interface GetCartResponse extends Cart {}
 
 export interface PostCartRequest {
-  product: Product;
+  product: Product
 }
 
 /*
@@ -35,16 +35,20 @@ export interface PostCartRequest {
 */
 
 export interface OrderDetail extends Product {
-  quantity: number;
+  quantity: number
+}
+
+export interface PostOrderDetail {
+  orderDetails: OrderDetail[]
 }
 
 export interface Order {
-  id: number;
-  orderDetails: OrderDetail[];
+  id: number
+  orderDetails: OrderDetail[]
 }
 
 export interface GetOrderResponse extends Order {}
 
 export interface PostOrderResponse {
-  orderDetails: OrderDetail[];
+  orderDetails: OrderDetail[]
 }

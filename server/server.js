@@ -58,9 +58,23 @@ server.post('/products', (req, res) => {
   }
 })
 
+server.get('/carts', (req, res) => {
+  const carts = db.get('carts').values()
+
+  res.send(carts)
+})
+
 server.post('/carts', (req, res) => {
   const { product } = req.body
-  const { price, name, imageUrl } = product
+  const { id, price, name, imageUrl } = product
+
+  const carts = db.get('carts').values()
+  const cartIds = [...carts.map((cart) => cart.id)]
+
+  if (cartIds.includes(id)) {
+    res.sendStatus(409)
+    return
+  }
 
   if (
     !Number.isInteger(price) ||
@@ -69,19 +83,41 @@ server.post('/carts', (req, res) => {
   ) {
     res.sendStatus(400)
   } else {
-    db.get('carts').push({ id: Date.now(), product }).write()
+      .push({
+        id: product.id,
+        product: {
+          name: product.name,
+          price: product.price,
+          imageUrl: product.imageUrl,
+        },
+      })
+      .write()
     res.sendStatus(201)
   }
 })
 
+server.delete('/carts', (req, res) => {
+  const { productIds } = req.body
+
+  const removeCartItems = () => {
+    productIds.forEach((id) => {
+      db.get('carts').remove({ id }).write()
+    })
+
+    console.log('delete Item Ids: ', productIds)
+  }
+
+  removeCartItems(db.get('carts'))
+
+  res.sendStatus(200)
+})
+
+server.get('/orders', (req, res) => {
+  const orders = db.get('orders').values()
+  res.send(orders)
+})
+
 server.post('/orders', (req, res) => {
-  const { orderDetails } = req.body
-
-  for (const orderDetail of orderDetails) {
-    const { quantity, price, name, imageUrl } = orderDetail
-
-    if (
-      !Number.isInteger(quantity) ||
       quantity < 1 ||
       !Number.isInteger(price) ||
       typeof name !== 'string' ||
