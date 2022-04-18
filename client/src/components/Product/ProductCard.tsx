@@ -3,10 +3,13 @@ import { productEndPoint, ProductPageProductData } from '../../core/redux/servic
 import CartImageUrl from '../../assets/svgs/cart.svg?url'
 import { toast } from 'react-toastify'
 import { useAddCartMutation } from '../../core/redux/service/cart'
+import { useNavigate } from 'react-router-dom'
+import { css } from '@emotion/react'
 
 const ProductCard = ({ product }: { product: ProductPageProductData }) => {
   const { name, price, imageUrl, isCartEntered } = product
   const [addCart] = useAddCartMutation()
+  const navigate = useNavigate()
 
   const onAddCartItem = () => {
     productEndPoint.util.updateQueryData('productList', 1, (productList) => {
@@ -23,7 +26,14 @@ const ProductCard = ({ product }: { product: ProductPageProductData }) => {
 
   return (
     <CardContainer>
-      <ProductImage src={imageUrl} alt={name ?? '상품 이미지'} />
+      <ProductImage
+        css={css`
+          cursor: pointer;
+        `}
+        onClick={() => navigate('/productDetail?productId=' + product.id)}
+        src={imageUrl}
+        alt={name ?? '상품 이미지'}
+      />
       <ProductBottomContainer>
         <ProductInfoContainer>
           <ProductName>{name}</ProductName>

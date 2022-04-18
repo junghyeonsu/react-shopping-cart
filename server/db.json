@@ -277,6 +277,14 @@
         "price": 2200,
         "imageUrl": "https://cdn-mart.baemin.com/goods/21/10221-main-01.jpg"
       }
+    },
+    {
+      "id": 9,
+      "product": {
+        "name": "미미사 분모자 (17mm) 250G",
+        "price": 1440,
+        "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6ae4c431-6988-41ab-8894-7df7ee7b7cb3.jpg"
+      }
     }
   ],
   "orders": [

@@ -31,7 +31,19 @@ export const productEndPoint = emptySplitApi.injectEndpoints({
       },
       providesTags: (result) => (result ? [...result.data.map(({ id }) => ({ type: 'Product' as const, id })), 'Product'] : ['Product']),
     }),
+    productDetail: builder.query<Product | null, number>({
+      async queryFn(orderId, _queryApi, _extraOptions) {
+        const productResponse = await axios.get<Product | null>('http://localhost:3003/product?productId=' + orderId)
+
+        const product = productResponse.data
+
+        return {
+          data: product,
+        }
+      },
+      providesTags: (result) => [{ type: 'Product', id: result?.id }],
+    }),
   }),
 })
 
-export const { useProductListQuery } = productEndPoint
+export const { useProductListQuery, useProductDetailQuery } = productEndPoint
