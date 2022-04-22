@@ -7,7 +7,7 @@ const GNB = () => {
     <nav className="nav flex justify-around align-items-center">
       <div className="flex-center">
         <Link to={PATH.MAIN}>
-          <h1 className="nav-title">CLEAN CODE SHOP</h1>
+          <h1 className="nav-title cursor-pointer">CLEAN CODE SHOP</h1>
         </Link>
       </div>
       <div className="flex gap-15">

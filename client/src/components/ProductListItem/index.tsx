@@ -1,18 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import cartIcon from "../../examples/assets/svgs/cart.svg";
-import { Product } from "../../types/product";
+import { useActions } from "../../hooks/useActions";
+import { Product } from "../../types/dto";
 
 interface ProductListItemProps {
   product: Product;
 }
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
+  const { postCartProduct } = useActions();
   const navigation = useNavigate();
 
-  const onClickCartIcon = (id: number) => {
-    // TODO : 장바구니 페이지 구현 시 id값 받아서 장바구니에 추가
-    navigation("/cart");
+  const onClickCartIcon = (product: Product) => {
+    postCartProduct(product, () => navigation("/cart"));
   };
 
   return (
@@ -31,7 +32,7 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
         <button
           aria-label="cart-icon"
           className="cursor-pointer"
-          onClick={() => onClickCartIcon(product.id)}
+          onClick={() => onClickCartIcon(product)}
         >
           <img src={cartIcon} alt="장바구니" />
         </button>

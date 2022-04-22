@@ -5,6 +5,7 @@ import "./examples/css/index.css";
 import Cart from "./pages/Cart";
 import OrderList from "./pages/OrderList";
 import { PATH } from "./constants";
+import Payment from "./pages/Payment";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path={PATH.MAIN} element={<ProductList />} />
         <Route path={PATH.CART} element={<Cart />} />
         <Route path={PATH.ORDERLIST} element={<OrderList />} />
+        <Route path={PATH.PAYMENT} element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );
