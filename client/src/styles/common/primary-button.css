@@ -5,10 +5,24 @@
   width: 100%;
   padding: 20px;
 }
+.primary-button:disabled {
+  background-color: #dddddd;
+  border-color: #dddddd;
+  color: white;
+  cursor: not-allowed;
+  opacity: 1;
+}
 
 .primary-button-small {
   background: #2ac1bc;
   font-size: 20px;
   color: white;
   padding: 14px 28px;
+}
+.primary-button-small:disabled {
+  background-color: #dddddd;
+  border-color: #dddddd;
+  color: white;
+  cursor: not-allowed;
+  opacity: 1;
 }

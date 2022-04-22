@@ -5,13 +5,8 @@ export const getCartList = () => {
   return api.get('/carts');
 };
 
-export const addCartItem = (item: ProductI) => {
-  const cartItem: Omit<ProductI, 'id'> = {
-    name: item.name,
-    price: item.price,
-    imageUrl: item.imageUrl,
-  };
-  return api.post('/carts', { product: cartItem });
+export const addCartItem = (product: ProductI) => {
+  return api.post('/carts', { product });
 };
 
 export const deleteCartItem = (id: number) => {

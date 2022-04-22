@@ -2,8 +2,9 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
+  EntityState,
 } from '@reduxjs/toolkit';
-import { addCartItem, getCartList } from '@/apis/cart';
+import { getCartList } from '@/apis/cart';
 import { CartItemI } from '@/models/cart';
 
 export const fetchCartList = createAsyncThunk<CartItemI[]>(
@@ -18,9 +19,17 @@ export const fetchCartList = createAsyncThunk<CartItemI[]>(
   },
 );
 
+export interface CareState extends EntityState<CartItemI> {
+  isLoading: boolean;
+  hasError: boolean;
+}
+
 export const cartAdapter = createEntityAdapter<CartItemI>();
 
-const initialState = cartAdapter.getInitialState();
+const initialState = cartAdapter.getInitialState({
+  isLoading: false,
+  hasError: false,
+});
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -28,10 +37,17 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCartList.fulfilled, cartAdapter.setAll)
-      .addCase(fetchCartList.rejected, (_, action) => {
-        // const err = action.error.message;
-        window.alert('데이터를 정상적으로 가져오지 못했습니다. 다시 시도 해주세요.');
+      .addCase(fetchCartList.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasError = false;
+        cartAdapter.setAll(state, action.payload);
+      })
+      .addCase(fetchCartList.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCartList.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
       });
   },
 });

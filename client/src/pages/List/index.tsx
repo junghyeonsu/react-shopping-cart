@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/store';
-import { fetchProducts, getIsProductLoading, getProductsAll } from '@/store/product';
+import {
+  fetchProducts,
+  getIsProductLoading,
+  getProductsAll,
+} from '@/store/product';
 import { formattedPrice } from '@/utils';
 import { addCartItem } from '@/apis/cart';
 import { ProductI } from '@/models/product';
-import AddCartModal from '@/components/Modal/AddCartModal';
-import { fetchCartList } from '@/store/cart';
 import Loading from '@/components/Loading';
+import AlertModal from '@/components/Modal/AlertModal';
 
 const ListPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const products = useSelector(getProductsAll);
-  const isLoading = useSelector(getIsProductLoading)
+  const isLoading = useSelector(getIsProductLoading);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductI>();
@@ -27,12 +30,16 @@ const ListPage = () => {
     navigate(`/detail/${id}`);
   };
 
-  const addToCartAndNavigate = (cartItem: ProductI) => {
-    return addCartItem(cartItem).then(() => navigate('/cart'));
+  const addToCartAndNavigate = async (cartItem: ProductI) => {
+    try {
+      await addCartItem(cartItem);
+    } finally {
+      navigate('/cart');
+    }
   };
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
@@ -67,13 +74,14 @@ const ListPage = () => {
               </div>
             </div>
           ))}
-          <AddCartModal
+          <AlertModal
             isShow={showModal}
             description="장바구니에 담으시겠습니까?"
             onClose={() => setShowModal(false)}
             onConfirm={() =>
               selectedProduct && addToCartAndNavigate(selectedProduct)
             }
+            hasRecommended={true}
           />
         </>
       ) : (

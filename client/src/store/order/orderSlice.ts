@@ -30,6 +30,7 @@ export const fetchOrderById = createAsyncThunk(
 export interface OrderState extends EntityState<OrderListI> {
   selectedOrder: OrderListI;
   isLoading: boolean;
+  hasError: boolean;
 }
 
 export const orderAdapter = createEntityAdapter<OrderListI>();
@@ -37,6 +38,7 @@ export const orderAdapter = createEntityAdapter<OrderListI>();
 const initialState = orderAdapter.getInitialState({
   selectedOrder: {},
   isLoading: false,
+  hasError: false,
 });
 
 export const orderSlice = createSlice({
@@ -47,24 +49,26 @@ export const orderSlice = createSlice({
     builder
       .addCase(fetchOrderList.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.hasError = false;
         orderAdapter.setAll(state, action.payload);
       })
       .addCase(fetchOrderList.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchOrderList.rejected, (_, action) => {
-        window.alert('데이터를 불러오지 못했습니다. 다시 시도해주세요.');
+      .addCase(fetchOrderList.rejected, (state) => {
+        state.hasError = true;
       });
     builder
       .addCase(fetchOrderById.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.hasError = false;
         state.selectedOrder = action.payload;
       })
       .addCase(fetchOrderById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchOrderById.rejected, (_state, error) => {
-        window.alert('데이터를 불러오지 못했습니다. 다시 시도해주세요.');
+      .addCase(fetchOrderById.rejected, (state) => {
+        state.hasError = true;
       });
   },
 });

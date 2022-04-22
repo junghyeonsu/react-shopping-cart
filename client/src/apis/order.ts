@@ -2,7 +2,7 @@ import { api } from './index';
 import { OrderDetailsI } from '@/models/order';
 
 export const addOrder = (orders: OrderDetailsI[]) => {
-  return api.post(`/orders`, orders);
+  return api.post(`/orders`, { orderDetails: orders });
 };
 
 export const getOrderList = () => {

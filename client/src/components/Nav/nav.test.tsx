@@ -1,4 +1,3 @@
-import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Nav from './index';
 
@@ -30,5 +29,3 @@ describe('Nav.tsx', () => {
     expect(mockNavigate).toBeCalled();
   });
 });
-
-

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,9 @@ import { useAppDispatch } from '@/store';
 import { fetchOrderList, getOrdersAll } from '@/store/order';
 import useDevice from '@/hooks/useDevice';
 import { formattedPrice } from '@/utils';
+import AlertModal from '@/components/Modal/AlertModal';
+import { OrderDetailsI } from '@/models/order';
+import { addCartItem } from '@/apis/cart';
 
 const OrderListPage = () => {
   const device = useDevice();
@@ -15,9 +18,22 @@ const OrderListPage = () => {
   const dispatch = useAppDispatch();
   const orderList = useSelector(getOrdersAll);
 
+  const [moveToCartModal, setMoveToCartModal] = useState(false);
+
   useEffect(() => {
     dispatch(fetchOrderList());
   }, []);
+
+  const addToCart = async (item: OrderDetailsI) => {
+    setMoveToCartModal(true);
+    const cartItem: Omit<OrderDetailsI, 'quantity'> = {
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      imageUrl: item.imageUrl,
+    };
+    await addCartItem(cartItem);
+  };
 
   return (
     <section className="order-section">
@@ -59,13 +75,24 @@ const OrderListPage = () => {
                       </span>
                     </div>
                   </div>
-                  <button className="primary-button-small flex-center self-start">
+                  <button
+                    className="primary-button-small flex-center self-start pointer"
+                    onClick={() => addToCart(detail)}
+                  >
                     장바구니
                   </button>
                 </div>
               ))}
             </React.Fragment>
           ))}
+          <AlertModal
+            isShow={moveToCartModal}
+            description="장바구니 페이지로 이동하시겠습니까?"
+            onClose={() => setMoveToCartModal(false)}
+            onConfirm={() => {
+              navigate('/cart');
+            }}
+          />
         </div>
       )}
     </section>

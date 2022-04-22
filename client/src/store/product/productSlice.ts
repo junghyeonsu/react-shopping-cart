@@ -1,4 +1,9 @@
-import { createAsyncThunk, createEntityAdapter, createSlice, EntityState } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from '@reduxjs/toolkit';
 import { getProducts, getProductWithId } from '@/apis/product';
 import { ProductI } from '@/models/product';
 
@@ -29,6 +34,7 @@ export const fetchProductById = createAsyncThunk<ProductI, string>(
 export interface ProductState extends EntityState<ProductI> {
   selectedProduct: ProductI;
   isLoading: boolean;
+  hasError: boolean;
 }
 
 export const productAdapter = createEntityAdapter<ProductI>();
@@ -36,6 +42,7 @@ export const productAdapter = createEntityAdapter<ProductI>();
 const initialState = productAdapter.getInitialState({
   selectedProduct: {},
   isLoading: false,
+  hasError: false,
 });
 
 export const productSlice = createSlice({
@@ -46,24 +53,28 @@ export const productSlice = createSlice({
     builder
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.hasError = false;
         productAdapter.setAll(state, action.payload);
       })
       .addCase(fetchProducts.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchProducts.rejected, (_, action) => {
-        // console.log(action.error.message)
-        window.alert('데이터를 정상적으로 가져오지 못했습니다. 다시 시도 해주세요.');
+      .addCase(fetchProducts.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
       });
     builder
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.hasError = false;
         state.selectedProduct = action.payload;
-      }).addCase(fetchProductById.pending, (state) => {
+      })
+      .addCase(fetchProductById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchProductById.rejected, (_, action) => {
-        window.alert('데이터를 정상적으로 가져오지 못했습니다. 다시 시도 해주세요.');
+      .addCase(fetchProductById.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
       });
   },
 });

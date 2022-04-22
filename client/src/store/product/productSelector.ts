@@ -25,7 +25,9 @@ export const getRandomRecommendProducts = createSelector(
   getProductsAll,
   (products) => {
     const RECOMMEND_ITEMS_AMOUNT = 3;
-    const randomIndex = Math.floor(Math.random() * products.length - RECOMMEND_ITEMS_AMOUNT - 1);
+    const randomIndex = Math.floor(
+      Math.random() * products.length - RECOMMEND_ITEMS_AMOUNT,
+    );
     return products.slice(randomIndex, randomIndex + RECOMMEND_ITEMS_AMOUNT);
   },
 );
@@ -33,4 +35,9 @@ export const getRandomRecommendProducts = createSelector(
 export const getIsProductLoading = createSelector(
   selectProductsState,
   (state) => state.isLoading,
+);
+
+export const getProductHasError = createSelector(
+  selectProductsState,
+  (state) => state.hasError,
 );

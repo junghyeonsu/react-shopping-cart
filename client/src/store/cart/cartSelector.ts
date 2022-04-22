@@ -15,3 +15,8 @@ export const getCartEntities = createSelector(
   selectCartState,
   cartSelectors.selectEntities,
 );
+
+export const getCartHasError = createSelector(
+  selectCartState,
+  (state) => state.hasError,
+);
