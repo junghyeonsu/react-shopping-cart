@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "types": [
+      "cypress",
+      "@testing-library/cypress",
+      "vite-plugin-svgr/client",
+    ],
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src",
+    "node_modules/@types/node/globals.global.d.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
