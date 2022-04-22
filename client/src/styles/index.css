@@ -1,0 +1,37 @@
+@import "./common/index.css";
+@import "./page/index.css";
+
+@font-face {
+  font-family: 'BMHANNAAir';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+* {
+ font-family: 'BMHANNAAir';
+}
+
+body {
+  margin: 0;
+}
+
+.divide-line {
+  width: 100%;
+  border: 2px solid black;
+}
+
+.divide-line-gray {
+  width: 100%;
+  border: 2px solid #aaaaaa;
+}
+
+.divide-line-thin {
+  width: 100%;
+  border: 1px solid #aaaaaa;
+}
+
+button, a {
+  cursor: pointer;
+}

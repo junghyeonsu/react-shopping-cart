@@ -1,11 +1,69 @@
 {
   "name": "shopping-cart-client",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^6.4.3",
+    "@reduxjs/toolkit": "^1.7.2",
+    "axios": "^0.26.0",
+    "msw": "^0.36.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "craco-alias": "^3.0.1",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-storybook": "^0.5.5",
+    "prettier": "^2.5.1",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.4.2",
+    "webpack": "^5.66.0"
+  },
   "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "build:mock": "npx msw init public --no-save",
+    "test": "craco test",
+    "eject": "craco eject",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint \"**/*.{js,ts,tsx}\" --fix",
+    "format": "prettier '**/*.{json,md}' --check",
+    "format:fix": "prettier '**/*.{json,md}' --write",
     "server:prepare": "cd ../server && yarn && cd ../client",
     "server": "cd ../server && yarn server && cd ../client",
     "server:first": "yarn server:prepare && yarn server"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
