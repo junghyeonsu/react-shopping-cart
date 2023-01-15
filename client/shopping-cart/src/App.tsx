@@ -1,10 +1,9 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import DefaultLayout from './layouts/DefaultLayout';
-
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Products from './pages/Products';
+import DefaultLayout from "./layouts/DefaultLayout";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Products from "./pages/Products";
 
 export default function App() {
   return (

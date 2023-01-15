@@ -4,14 +4,11 @@
  */
 
 export default {
-  preset: 'ts-jest',
+  preset: "ts-jest",
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coverageProvider: 'v8',
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: [
-    '<rootDir>/jest.config.ts',
-    'jest-plugin-context/setup',
-  ],
+  coverageDirectory: "coverage",
+  coverageProvider: "v8",
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/jest.config.ts", "jest-plugin-context/setup"],
 };

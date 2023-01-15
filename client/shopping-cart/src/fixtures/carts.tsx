@@ -3,18 +3,18 @@ const carts = {
     {
       id: 1,
       products: {
-        name: 'test',
+        name: "test",
         price: 1234,
-        imageUrl: 'test.com',
+        imageUrl: "test.com",
         id: 1,
       },
     },
     {
       id: 5,
       products: {
-        name: 'tes11111t',
+        name: "tes11111t",
         price: 1234,
-        imageUrl: 'test.com',
+        imageUrl: "test.com",
         id: 10,
       },
     },

@@ -1,15 +1,16 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import Product from './components/Product';
-
-import PRODUCTS from '../../fixtures/products';
+import PRODUCTS from "../../fixtures/products";
+import Product from "./components/Product";
 
 export default function Products() {
   const { response } = PRODUCTS;
 
   return (
     <Container>
-      {response.map((product) => <Product key={product.id} product={product} />)}
+      {response.map((product) => (
+        <Product key={product.id} product={product} />
+      ))}
     </Container>
   );
 }
