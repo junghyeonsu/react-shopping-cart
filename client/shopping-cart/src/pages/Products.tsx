@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import PRODUCTS from "../../fixtures/products";
-import Product from "./components/Product";
+import Product from "../components/Product";
+import PRODUCTS from "../fixtures/products";
 
 export default function Products() {
   const { response } = PRODUCTS;

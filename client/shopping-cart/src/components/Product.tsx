@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { ReactComponent as CartIcon } from "../../../assets/svgs/cart_icon.svg";
-import type { ProductType } from "../../../fixtures/products";
+import type { ProductType } from "../fixtures/products";
 
 type Props = {
   product: ProductType;
