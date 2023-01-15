@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
-import { ReactComponent as CartIcon } from "../../../assets/svgs/cart_icon.svg";
+import { ReactComponent as CartIcon } from "../assets/svgs/cart_icon.svg";
 import type { ProductType } from "../fixtures/products";
 
 type Props = {
@@ -9,6 +10,12 @@ type Props = {
 
 export default function Product({ product }: Props) {
   const { name, price, imageUrl } = product;
+
+  const navigate = useNavigate();
+
+  const moveCardPage = () => {
+    navigate(`/carts`);
+  };
 
   return (
     <Container>
@@ -20,7 +27,7 @@ export default function Product({ product }: Props) {
           <p>{name}</p>
           <p>{price} 원</p>
         </FooterLeft>
-        <FooterRight type="button" title="cart">
+        <FooterRight type="button" title="cart" onClick={moveCardPage}>
           <CartIcon />
         </FooterRight>
       </Footer>
@@ -61,6 +68,10 @@ const FooterRight = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  :hover {
+    cursor: pointer;
+  }
 
   > & img {
     width: 30px;
