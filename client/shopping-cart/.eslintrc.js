@@ -20,8 +20,10 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
+    'json-format',
     'react',
     '@typescript-eslint',
+    'simple-import-sort',
   ],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
