@@ -1,9 +1,10 @@
 import { useQuery } from "react-query";
 
+import type { ProductType } from "../types";
 import { fetcher } from "./client";
 
-export const useProduct = <T>(id: string) => {
-  const { data, isLoading, error } = useQuery<T>("product", () =>
+export const useProduct = (id: string) => {
+  const { data, isLoading, error } = useQuery<ProductType>("product", () =>
     fetcher({
       path: `productse/${id}`,
       method: "GET",
@@ -17,8 +18,8 @@ export const useProduct = <T>(id: string) => {
   };
 };
 
-export const useProducts = <T>() => {
-  const { data, isLoading, error } = useQuery<T>("products", () =>
+export const useProducts = () => {
+  const { data, isLoading, error } = useQuery<ProductType[]>("products", () =>
     fetcher({
       path: "products",
       method: "GET",

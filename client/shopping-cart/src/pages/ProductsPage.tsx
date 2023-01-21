@@ -2,10 +2,9 @@ import styled from "@emotion/styled";
 
 import { useProducts } from "../api/product";
 import Product from "../components/Product";
-import type { ProductType } from "../types";
 
 export default function ProductsPage() {
-  const { data } = useProducts<ProductType[]>();
+  const { data } = useProducts();
 
   return (
     <Container>
