@@ -1,7 +1,9 @@
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 import type { ProductType } from "../types";
 import { fetcher } from "./client";
+
+const PRODUCT_SIZE_AT_ONCE = 4;
 
 export const useProduct = (id: string) => {
   const { data, isLoading, error } = useQuery<ProductType>("product", () =>
@@ -19,11 +21,26 @@ export const useProduct = (id: string) => {
 };
 
 export const useProducts = () => {
-  const { data, isLoading, error } = useQuery<ProductType[]>("products", () =>
-    fetcher({
-      path: "products",
-      method: "GET",
-    }),
+  const { data, isLoading, error } = useInfiniteQuery<ProductType[]>(
+    "products",
+    ({ pageParam = 1 }) =>
+      fetcher({
+        path: "products",
+        method: "GET",
+        params: {
+          page: pageParam,
+        },
+      }),
+
+    {
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.length < PRODUCT_SIZE_AT_ONCE) {
+          return undefined;
+        }
+
+        return pages.length + 1;
+      },
+    },
   );
 
   return {

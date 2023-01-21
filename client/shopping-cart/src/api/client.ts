@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { QueryClient } from "react-query";
 
 interface FetchProps {
   path: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
-  body?: Record<string, unknown>;
-  params?: Record<string, unknown>;
+  body?: Record<string, any>;
+  params?: Record<string, any>;
 }
 
 export const queryClient = new QueryClient({
@@ -28,7 +29,7 @@ export const fetcher = async ({ path, method, params, body }: FetchProps) => {
 
   try {
     if (params) {
-      const searchParams = new URLSearchParams(params.toString());
+      const searchParams = new URLSearchParams(params);
       requestUrl += `?${searchParams.toString()}`;
     }
 

@@ -8,9 +8,9 @@ export default function ProductsPage() {
 
   return (
     <Container>
-      {data?.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
+      {data?.pages.map((products) =>
+        products.map((product) => <Product key={product.id} product={product} />),
+      )}
     </Container>
   );
 }
