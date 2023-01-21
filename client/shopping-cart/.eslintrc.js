@@ -49,6 +49,8 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "import/prefer-default-export": "off",
+    "consistent-return": "off",
+    "no-undef": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {

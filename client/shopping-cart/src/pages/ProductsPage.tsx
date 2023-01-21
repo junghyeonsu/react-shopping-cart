@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 
+import { useProducts } from "../api/product";
 import Product from "../components/Product";
-import PRODUCTS from "../fixtures/products";
+import type { ProductType } from "../types";
 
 export default function ProductsPage() {
-  const { response } = PRODUCTS;
+  const { data } = useProducts<ProductType[]>();
 
   return (
     <Container>
-      {response.map((product) => (
+      {data?.map((product) => (
         <Product key={product.id} product={product} />
       ))}
     </Container>

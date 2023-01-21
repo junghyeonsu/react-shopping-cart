@@ -1,11 +1,11 @@
-interface Product {
+interface ProductType {
   id: number;
   price: number;
   name: string;
   imageUrl: string;
 }
 
-interface OrderDetail {
+interface OrderDetailType {
   id: number;
   price: number;
   name: string;
@@ -13,9 +13,9 @@ interface OrderDetail {
   quantity: number;
 }
 
-interface Cart {
+interface CartType {
   id: number;
-  products: Product[];
+  products: ProductType[];
 }
 
-export type { Cart, OrderDetail, Product };
+export type { CartType, OrderDetailType, ProductType };

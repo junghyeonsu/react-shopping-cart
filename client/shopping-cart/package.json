@@ -15,11 +15,12 @@
     "@emotion/styled": "^11.6.0",
     "@reduxjs/toolkit": "^1.9.1",
     "add": "^2.0.6",
-    "axios": "^1.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-query": "^3.39.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "6",
+    "redux-saga": "^1.2.2",
     "vite-babel-plugin": "^0.0.2",
     "vite-plugin-svgr": "^1.0.1",
     "yarn": "^1.22.17"

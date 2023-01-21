@@ -1,18 +1,33 @@
-import axios from "axios";
+import { useQuery } from "react-query";
 
-import type { Product } from "../types";
+import { fetcher } from "./client";
 
-export const getProduct = async (id: string) => {
-  const response = await axios.get<Product>(`/products/${id}`);
-  return response.data;
+export const useProduct = <T>(id: string) => {
+  const { data, isLoading, error } = useQuery<T>("product", () =>
+    fetcher({
+      path: `productse/${id}`,
+      method: "GET",
+    }),
+  );
+
+  return {
+    data,
+    isLoading,
+    error,
+  };
 };
 
-export const getProducts = async () => {
-  const response = await axios.get<Product[]>("/products");
-  return response.data;
-};
+export const useProducts = <T>() => {
+  const { data, isLoading, error } = useQuery<T>("products", () =>
+    fetcher({
+      path: "products",
+      method: "GET",
+    }),
+  );
 
-export const postProducts = async (product: Product) => {
-  const response = await axios.post("/products", product);
-  return response.data;
+  return {
+    data,
+    isLoading,
+    error,
+  };
 };
