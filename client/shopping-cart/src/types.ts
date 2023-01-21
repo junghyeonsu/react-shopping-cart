@@ -13,4 +13,9 @@ interface OrderDetail {
   quantity: number;
 }
 
-export type { OrderDetail, Product };
+interface Cart {
+  id: number;
+  products: Product[];
+}
+
+export type { Cart, OrderDetail, Product };
