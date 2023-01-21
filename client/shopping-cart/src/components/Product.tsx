@@ -14,7 +14,11 @@ export default function Product({ product }: Props) {
   const navigate = useNavigate();
 
   const moveCardPage = () => {
-    navigate(`/carts`);
+    navigate(`/carts`, {
+      state: {
+        product,
+      },
+    });
   };
 
   return (

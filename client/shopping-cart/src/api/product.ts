@@ -21,7 +21,7 @@ export const useProduct = (id: string) => {
 };
 
 export const useProducts = () => {
-  const { data, isLoading, error } = useInfiniteQuery<ProductType[]>(
+  const { data, isLoading, error, hasNextPage, fetchNextPage } = useInfiniteQuery<ProductType[]>(
     "products",
     ({ pageParam = 1 }) =>
       fetcher({
@@ -47,5 +47,7 @@ export const useProducts = () => {
     data,
     isLoading,
     error,
+    hasNextPage,
+    fetchNextPage,
   };
 };
