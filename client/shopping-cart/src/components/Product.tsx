@@ -13,7 +13,7 @@ export default function Product({ product }: Props) {
 
   const navigate = useNavigate();
 
-  const moveCardPage = () => {
+  const moveCartsPage = () => {
     navigate(`/carts`, {
       state: {
         product,
@@ -21,8 +21,12 @@ export default function Product({ product }: Props) {
     });
   };
 
+  const moveProductDetailPage = () => {
+    navigate(`/product/${product.id}`);
+  };
+
   return (
-    <Container>
+    <Container onClick={moveProductDetailPage}>
       <Header>
         <img src={imageUrl} alt="product" />
       </Header>
@@ -31,7 +35,7 @@ export default function Product({ product }: Props) {
           <p>{name}</p>
           <p>{price} 원</p>
         </FooterLeft>
-        <FooterRight type="button" title="cart" onClick={moveCardPage}>
+        <FooterRight type="button" title="cart" onClick={moveCartsPage}>
           <CartIcon />
         </FooterRight>
       </Footer>

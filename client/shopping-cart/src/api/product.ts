@@ -8,7 +8,7 @@ const PRODUCT_SIZE_AT_ONCE = 4;
 export const useProduct = (id: string) => {
   const { data, isLoading, error } = useQuery<ProductType>("product", () =>
     fetcher({
-      path: `productse/${id}`,
+      path: `products/${id}`,
       method: "GET",
     }),
   );

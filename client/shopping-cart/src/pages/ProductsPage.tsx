@@ -4,7 +4,15 @@ import { useProducts } from "../api/product";
 import Product from "../components/Product";
 
 export default function ProductsPage() {
-  const { data } = useProducts();
+  const { data, isLoading, error } = useProducts();
+
+  if (isLoading) {
+    return <p>로딩중...</p>;
+  }
+
+  if (error) {
+    return <p>에러가 발생했습니다.</p>;
+  }
 
   return (
     <Container>
