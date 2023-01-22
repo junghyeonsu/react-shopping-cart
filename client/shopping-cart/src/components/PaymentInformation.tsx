@@ -1,22 +1,26 @@
 import styled from "@emotion/styled";
 
 interface PaymentInformationProps {
-  payment: number;
+  title: string;
+  description: string;
+  amount: number;
   actionButtonText: string;
   onClickActionButton: () => void;
 }
 
 export default function PaymentInformation({
-  onClickActionButton,
+  title,
+  description,
+  amount,
   actionButtonText,
-  payment,
+  onClickActionButton,
 }: PaymentInformationProps) {
   return (
     <PaymentResultSection>
-      <PaymentResultTitle>결제예상금액</PaymentResultTitle>
+      <PaymentResultTitle>{title}</PaymentResultTitle>
       <PaymentResultPriceContainer>
-        <PaymentResultText>결제예상금액</PaymentResultText>
-        <PaymentResultText>{payment.toLocaleString()}원</PaymentResultText>
+        <PaymentResultText>{description}</PaymentResultText>
+        <PaymentResultText>{amount.toLocaleString()}원</PaymentResultText>
       </PaymentResultPriceContainer>
       <PaymentResultOrderButton type="button" onClick={onClickActionButton}>
         {actionButtonText}
@@ -44,6 +48,11 @@ const PaymentResultSection = styled.section`
   border: 2px solid #dddddd;
 
   @media screen and (max-width: 768px) {
+    position: fixed;
+    top: unset;
+    bottom: 0;
+    left: 0;
+
     width: 100%;
 
     height: 140px;
@@ -52,7 +61,6 @@ const PaymentResultSection = styled.section`
 
     border: none;
     border-top: 2px solid #dddddd;
-    bottom: 0;
   }
 `;
 

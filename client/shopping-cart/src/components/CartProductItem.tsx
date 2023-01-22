@@ -28,27 +28,27 @@ function DeleteIcon() {
 
 export default function CartProductItem() {
   return (
-    <ProductItem>
-      <ProductInfoSection>
+    <Container>
+      <InfoSection>
         <Checkbox type="checkbox" />
-        <ProductItemImage src="https://fakeimg.pl/300/" alt="fakeimage" />
-        <ProductItemName>[든든] 야채바삭 김말이 700g</ProductItemName>
-      </ProductInfoSection>
+        <ItemImage src="https://fakeimg.pl/300/" alt="fakeimage" />
+        <ItemName>[든든] 야채바삭 김말이 700g</ItemName>
+      </InfoSection>
 
-      <ProductModulateSection>
-        <ProductItemDeleteButton>
+      <ModulateSection>
+        <ItemDeleteButton>
           <DeleteIcon />
-        </ProductItemDeleteButton>
-        <ProductItemCountSection>
-          <ProductItemCountInput type="number" />
-          <ProductItemCountButtonContainer>
-            <ProductItemCountButton>▲</ProductItemCountButton>
-            <ProductItemCountButton>▼</ProductItemCountButton>
-          </ProductItemCountButtonContainer>
-        </ProductItemCountSection>
-        <ProductItemPrice>1,000원</ProductItemPrice>
-      </ProductModulateSection>
-    </ProductItem>
+        </ItemDeleteButton>
+        <ItemCountSection>
+          <ItemCountInput type="number" />
+          <ItemCountButtonContainer>
+            <ItemCountButton>▲</ItemCountButton>
+            <ItemCountButton>▼</ItemCountButton>
+          </ItemCountButtonContainer>
+        </ItemCountSection>
+        <ItemPrice>1,000원</ItemPrice>
+      </ModulateSection>
+    </Container>
   );
 }
 
@@ -80,7 +80,7 @@ const Checkbox = styled.input`
   }
 `;
 
-const ProductItem = styled.li`
+const Container = styled.li`
   display: flex;
   justify-content: space-between;
 
@@ -88,21 +88,21 @@ const ProductItem = styled.li`
   padding: 20px 0;
 `;
 
-const ProductItemImage = styled.img`
+const ItemImage = styled.img`
   width: 144px;
   height: 144px;
 `;
 
-const ProductItemName = styled.div``;
+const ItemName = styled.div``;
 
-const ProductInfoSection = styled.div`
+const InfoSection = styled.div`
   display: flex;
   align-items: flex-start;
 
   gap: 6px;
 `;
 
-const ProductModulateSection = styled.div`
+const ModulateSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -111,7 +111,7 @@ const ProductModulateSection = styled.div`
   gap: 6px;
 `;
 
-const ProductItemDeleteButton = styled.button`
+const ItemDeleteButton = styled.button`
   border: none;
 
   :hover {
@@ -119,12 +119,12 @@ const ProductItemDeleteButton = styled.button`
   }
 `;
 
-const ProductItemCountSection = styled.div`
+const ItemCountSection = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const ProductItemCountInput = styled.input`
+const ItemCountInput = styled.input`
   width: 72px;
   height: 58px;
   border: 1px solid #dddddd;
@@ -136,12 +136,12 @@ const ProductItemCountInput = styled.input`
   }
 `;
 
-const ProductItemCountButtonContainer = styled.div`
+const ItemCountButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ProductItemCountButton = styled.button`
+const ItemCountButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,4 +151,4 @@ const ProductItemCountButton = styled.button`
   cursor: pointer;
 `;
 
-const ProductItemPrice = styled.div``;
+const ItemPrice = styled.p``;

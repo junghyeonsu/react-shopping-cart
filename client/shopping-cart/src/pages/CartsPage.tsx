@@ -18,7 +18,7 @@ export default function CartsPage() {
             </ProductCartHeaderLabel>
             <ProductCartHeaderDeleteButton>상품삭제</ProductCartHeaderDeleteButton>
           </ProductCartHeader>
-          <ProductListTitle>상품 ({null}개)</ProductListTitle>
+          <ProductListTitle>상품 (2개)</ProductListTitle>
 
           <ProductList>
             <CartProductItem />
@@ -33,7 +33,9 @@ export default function CartsPage() {
         </ProductCartDetailSection>
 
         <PaymentInformation
-          payment={21000}
+          title="결제예상금액"
+          description="결제예상금액"
+          amount={21000}
           actionButtonText="주문하기 (2개)"
           onClickActionButton={() => null}
         />
@@ -143,4 +145,8 @@ const ProductList = styled.ul`
 
   width: 100%;
   margin-top: 20px;
+
+  @media screen and (max-width: 768px) {
+    padding-bottom: 140px;
+  }
 `;

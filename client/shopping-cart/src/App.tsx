@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import CartsPage from "./pages/CartsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import OrdersPage from "./pages/OrdersPage";
+import PaymentPage from "./pages/PaymentPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductsPage from "./pages/ProductsPage";
 
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="products" element={<ProductsPage />} />
         <Route path="product/:id" element={<ProductDetailPage />} />
         <Route path="carts" element={<CartsPage />} />
+        <Route path="payment" element={<PaymentPage />} />
         <Route path="orders" element={<OrdersPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
