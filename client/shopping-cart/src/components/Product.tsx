@@ -26,12 +26,12 @@ export default function Product({ product }: ProductProps) {
   };
 
   return (
-    <Container onClick={moveProductDetailPage}>
-      <Header>
+    <Container>
+      <Header onClick={moveProductDetailPage}>
         <img src={imageUrl} alt="product" />
       </Header>
       <Footer>
-        <FooterLeft>
+        <FooterLeft onClick={moveProductDetailPage}>
           <p>{name}</p>
           <p>{price} 원</p>
         </FooterLeft>
@@ -68,6 +68,10 @@ const FooterLeft = styled.div`
     font-size: 20px;
     line-height: 27px;
     letter-spacing: 0.5px;
+  }
+
+  :hover {
+    cursor: pointer;
   }
 `;
 
