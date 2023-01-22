@@ -132,6 +132,13 @@ const reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 `;
 
 export default reset;
