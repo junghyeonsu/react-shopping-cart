@@ -49,6 +49,10 @@ const Header = styled.div`
   & > img {
     width: 100%;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Footer = styled.div`
