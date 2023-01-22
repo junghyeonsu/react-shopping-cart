@@ -2,13 +2,13 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as CartIcon } from "../assets/svgs/cart_icon.svg";
-import type { ProductType } from "../fixtures/products";
+import type { ProductType } from "../types";
 
-type Props = {
+interface ProductProps {
   product: ProductType;
-};
+}
 
-export default function Product({ product }: Props) {
+export default function Product({ product }: ProductProps) {
   const { name, price, imageUrl } = product;
 
   const navigate = useNavigate();
