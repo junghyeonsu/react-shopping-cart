@@ -55,7 +55,7 @@ export default function CartsPage() {
     const isConfirmed = window.confirm("주문/결제 페이지로 이동하시겠습니까?");
     if (!isConfirmed) return;
 
-    navigate(`/payment`);
+    navigate(`/payment`, { state: { isOrderable: true } });
   };
 
   return (

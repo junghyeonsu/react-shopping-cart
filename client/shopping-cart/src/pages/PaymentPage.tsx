@@ -1,9 +1,21 @@
 import styled from "@emotion/styled";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import OrderProductItem from "../components/OrderProductItem";
 import PaymentInformation from "../components/PaymentInformation";
 
 export default function PaymentPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location || !location.state) {
+      console.warn("잘못된 경로입니다.");
+      navigate("/");
+    }
+  }, [location, navigate]);
+
   return (
     <Container>
       <Title>주문 / 결제</Title>
