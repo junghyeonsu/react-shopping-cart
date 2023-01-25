@@ -1,12 +1,23 @@
 import styled from "@emotion/styled";
 
-export default function OrderProductItem() {
+import type { ProductType } from "../types";
+
+interface OrderProductItemProps {
+  product: ProductType;
+}
+
+export default function OrderProductItem({ product }: OrderProductItemProps) {
+  const { imageUrl, name, price, quantity } = product;
+
+  const totalPrice = (price * quantity!).toLocaleString();
+
   return (
     <ItemContainer>
-      <ItemImage src="https://fakeimg.pl/300/" alt="fakeimage" />
+      <ItemImage src={imageUrl} alt="fakeimage" />
       <InfoSection>
-        <ItemName>[든든] 야채바삭 김말이 700g</ItemName>
-        <ItemAmount>수량: 4개</ItemAmount>
+        <ItemName>{name}</ItemName>
+        <ItemAmount>수량: {quantity}개</ItemAmount>
+        <ItemAmount>가격: {totalPrice}원</ItemAmount>
       </InfoSection>
     </ItemContainer>
   );

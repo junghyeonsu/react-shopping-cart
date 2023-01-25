@@ -1,20 +1,31 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import OrderProductItem from "../components/OrderProductItem";
 import PaymentInformation from "../components/PaymentInformation";
+import type { RootState } from "../store";
 
 export default function PaymentPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const products = useSelector((state: RootState) => state.cart.products);
 
   useEffect(() => {
     if (!location || !location.state) {
+      // eslint-disable-next-line no-console
       console.warn("잘못된 경로입니다.");
       navigate("/");
     }
   }, [location, navigate]);
+
+  const checkedProducts = products.filter((product) => product.checked);
+  const productsCount = checkedProducts.length;
+  const allProductsPrice = checkedProducts.reduce(
+    (acc, product) => acc + product.price * product.quantity!,
+    0,
+  );
 
   return (
     <Container>
@@ -22,23 +33,19 @@ export default function PaymentPage() {
       <Divider />
       <PaymentInfoContainer>
         <OrderProductContainer>
-          <OrderProductHeader>주문 상품(4건)</OrderProductHeader>
+          <OrderProductHeader>주문 상품({productsCount}건)</OrderProductHeader>
           <OrderProductList>
-            <OrderProductItem />
-            <OrderProductItem />
-            <OrderProductItem />
-            <OrderProductItem />
-            <OrderProductItem />
-            <OrderProductItem />
-            <OrderProductItem />
+            {checkedProducts.map((product) => (
+              <OrderProductItem key={product.id} product={product} />
+            ))}
           </OrderProductList>
         </OrderProductContainer>
 
         <PaymentInformation
           title="결제금액"
           description="총 결제금액"
-          amount={21000}
-          actionButtonText={`${21000}원 결제하기`}
+          amount={allProductsPrice}
+          actionButtonText={`${allProductsPrice.toLocaleString()}원 결제하기`}
           onClickActionButton={() => null}
         />
       </PaymentInfoContainer>

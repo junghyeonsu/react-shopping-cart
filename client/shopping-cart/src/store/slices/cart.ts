@@ -58,9 +58,12 @@ const cartSlice = createSlice({
     decreaseQuantity: (state: State, action: PayloadAction<number>) => {
       const products = state.products.map((product) => {
         if (product.id === action.payload) {
+          const quantity = product.quantity ? product.quantity - 1 : 1;
+
           return {
             ...product,
             quantity: product.quantity ? product.quantity - 1 : 1,
+            checked: product.checked && quantity === 0 ? false : product.checked,
           };
         }
         return product;

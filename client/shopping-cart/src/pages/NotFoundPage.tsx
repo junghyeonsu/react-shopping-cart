@@ -6,7 +6,7 @@ export default function NotFoundPage() {
 
   useEffect(() => {
     navigate("/products");
-  }, []);
+  }, [navigate]);
 
   return <div>Not Found Page</div>;
 }
