@@ -32,7 +32,12 @@ export default function CartProductItem({ product }: CartProductItemProps) {
     const { checked } = event.target;
     dispatch(toggleProduct({ id, checked: !checked }));
   };
-  const deleteHandler = () => deleteCart({ id });
+  const deleteHandler = () => {
+    const isConfirmed = window.confirm("해당 상품을 정말 삭제하시겠습니까?");
+    if (!isConfirmed) return;
+
+    deleteCart({ id });
+  };
 
   const calculatedPrice = (price * quantity!).toLocaleString();
 

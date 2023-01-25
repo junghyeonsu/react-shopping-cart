@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { useDeleteCarts, useGetCarts } from "../api/cart";
 import CartProductItem from "../components/CartProductItem";
@@ -9,8 +10,9 @@ import type { RootState } from "../store";
 import { deleteCheckedProducts, setProducts, toggleAllProducts } from "../store/slices/cart";
 
 export default function CartsPage() {
-  const { data } = useGetCarts();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data } = useGetCarts();
 
   useEffect(() => {
     if (!data) return;
@@ -36,6 +38,9 @@ export default function CartsPage() {
     dispatch(toggleAllProducts(!checked));
   };
   const deleteCheckedProductHandler = () => {
+    const isConfirmed = window.confirm("선택한 상품들을 삭제하시겠습니까?");
+    if (!isConfirmed) return;
+
     const checkedProducts = products.filter((product) => product.checked);
     checkedProducts.forEach((product) => deleteCart({ id: product.id }));
   };
@@ -45,6 +50,13 @@ export default function CartsPage() {
       dispatch(deleteCheckedProducts());
     },
   });
+
+  const movePaymentPage = () => {
+    const isConfirmed = window.confirm("주문/결제 페이지로 이동하시겠습니까?");
+    if (!isConfirmed) return;
+
+    navigate(`/payment`);
+  };
 
   return (
     <Container>
@@ -76,7 +88,7 @@ export default function CartsPage() {
           description="결제예상금액"
           amount={totalPrice}
           actionButtonText={`주문하기 (${productCount}개)`}
-          onClickActionButton={() => null}
+          onClickActionButton={movePaymentPage}
         />
       </ProductCartContainer>
     </Container>

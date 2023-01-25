@@ -53,6 +53,7 @@ module.exports = {
     "consistent-return": "off",
     "no-undef": "off",
     "no-shadow": "off",
+    "no-alert": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
