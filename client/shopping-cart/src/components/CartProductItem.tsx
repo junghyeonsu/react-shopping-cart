@@ -1,4 +1,50 @@
 import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
+
+import { changeQuantity, decreaseQuantity, increaseQuantity } from "../store/slices/cart";
+import type { ProductType } from "../types";
+
+interface CartProductItemProps {
+  product: ProductType;
+}
+
+export default function CartProductItem({ product }: CartProductItemProps) {
+  const { id, imageUrl, name, price, quantity } = product;
+  const dispatch = useDispatch();
+
+  const increaseQuantityHandler = () => dispatch(increaseQuantity(id));
+  const decreaseQuantityHandler = () => dispatch(decreaseQuantity(id));
+  const quantityChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    if (value === "") return;
+    const quantity = Number(value);
+    if (quantity < 1) return;
+    dispatch(changeQuantity({ id, quantity }));
+  };
+
+  return (
+    <Container key={id}>
+      <InfoSection>
+        <Checkbox type="checkbox" />
+        <ItemImage src={imageUrl} alt="fakeimage" />
+        <ItemName>{name}</ItemName>
+      </InfoSection>
+      <ModulateSection>
+        <ItemDeleteButton>
+          <DeleteIcon />
+        </ItemDeleteButton>
+        <ItemCountSection>
+          <ItemCountInput onChange={quantityChangeHandler} value={quantity} type="number" />
+          <ItemCountButtonContainer>
+            <ItemCountButton onClick={increaseQuantityHandler}>▲</ItemCountButton>
+            <ItemCountButton onClick={decreaseQuantityHandler}>▼</ItemCountButton>
+          </ItemCountButtonContainer>
+        </ItemCountSection>
+        <ItemPrice>{price?.toLocaleString()}원</ItemPrice>
+      </ModulateSection>
+    </Container>
+  );
+}
 
 function DeleteIcon() {
   return (
@@ -23,32 +69,6 @@ function DeleteIcon() {
         />
       </defs>
     </svg>
-  );
-}
-
-export default function CartProductItem() {
-  return (
-    <Container>
-      <InfoSection>
-        <Checkbox type="checkbox" />
-        <ItemImage src="https://fakeimg.pl/300/" alt="fakeimage" />
-        <ItemName>[든든] 야채바삭 김말이 700g</ItemName>
-      </InfoSection>
-
-      <ModulateSection>
-        <ItemDeleteButton>
-          <DeleteIcon />
-        </ItemDeleteButton>
-        <ItemCountSection>
-          <ItemCountInput type="number" />
-          <ItemCountButtonContainer>
-            <ItemCountButton>▲</ItemCountButton>
-            <ItemCountButton>▼</ItemCountButton>
-          </ItemCountButtonContainer>
-        </ItemCountSection>
-        <ItemPrice>1,000원</ItemPrice>
-      </ModulateSection>
-    </Container>
   );
 }
 

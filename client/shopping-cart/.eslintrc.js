@@ -52,6 +52,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "consistent-return": "off",
     "no-undef": "off",
+    "no-shadow": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {

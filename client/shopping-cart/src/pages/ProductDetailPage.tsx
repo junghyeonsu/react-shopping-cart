@@ -10,6 +10,7 @@ export default function ProductDetailPage() {
     return <Navigate to="/products" />;
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, isLoading, isError } = useProduct(id);
 
   if (isError) {

@@ -1,9 +1,30 @@
 import styled from "@emotion/styled";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import { useGetCarts } from "../api/cart";
 import CartProductItem from "../components/CartProductItem";
 import PaymentInformation from "../components/PaymentInformation";
+import type { RootState } from "../store";
+import { setProducts } from "../store/slices/cart";
 
 export default function CartsPage() {
+  const { data } = useGetCarts();
+  const dispatch = useDispatch();
+
+  const products = useSelector((state: RootState) => state.cart.products);
+
+  useEffect(() => {
+    if (!data) return;
+
+    const productsWithAmount = data.map((product) => ({
+      ...product,
+      quantity: 1,
+    }));
+
+    dispatch(setProducts(productsWithAmount));
+  }, [data, dispatch]);
+
   return (
     <Container>
       <Title>장바구니</Title>
@@ -21,14 +42,9 @@ export default function CartsPage() {
           <ProductListTitle>상품 (2개)</ProductListTitle>
 
           <ProductList>
-            <CartProductItem />
-            <CartProductItem />
-            <CartProductItem />
-            <CartProductItem />
-            <CartProductItem />
-            <CartProductItem />
-            <CartProductItem />
-            <CartProductItem />
+            {products.map((product) => (
+              <CartProductItem key={product.id} product={product} />
+            ))}
           </ProductList>
         </ProductCartDetailSection>
 

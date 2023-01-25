@@ -3,6 +3,7 @@ interface ProductType {
   price: number;
   name: string;
   imageUrl: string;
+  quantity?: number;
 }
 
 interface OrderDetailType {

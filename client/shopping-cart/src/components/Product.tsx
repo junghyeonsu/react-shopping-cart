@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { usePostCarts } from "../api/cart";
 import { ReactComponent as CartIcon } from "../assets/svgs/cart_icon.svg";
+import { addProduct } from "../store/slices/cart";
 import type { ProductType } from "../types";
 
 interface ProductProps {
@@ -9,11 +12,14 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  const { name, price, imageUrl } = product;
-
+  const { id, name, price, imageUrl } = product;
+  const { mutate: postProductInCart } = usePostCarts({ product });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const moveCartsPage = () => {
+    dispatch(addProduct({ quantity: 1, ...product }));
+    postProductInCart();
     navigate(`/carts`, {
       state: {
         product,
@@ -22,7 +28,7 @@ export default function Product({ product }: ProductProps) {
   };
 
   const moveProductDetailPage = () => {
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

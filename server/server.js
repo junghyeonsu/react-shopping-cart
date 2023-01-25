@@ -41,7 +41,7 @@ server.post("/carts", (req, res) => {
   ) {
     res.sendStatus(400);
   } else {
-    db.get("carts").push({ id: Date.now(), product }).write();
+    db.get("carts").push({ ...product }).write();
     res.sendStatus(201);
   }
 });

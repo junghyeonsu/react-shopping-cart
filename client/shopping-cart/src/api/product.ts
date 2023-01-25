@@ -6,17 +6,11 @@ import { fetcher } from "./client";
 const PRODUCT_SIZE_AT_ONCE = 4;
 
 export const useProduct = (id: string) => {
-  const { data, isLoading, error, isError } = useQuery<ProductType>(
-    "product",
-    () =>
-      fetcher({
-        path: `products/${id}`,
-        method: "GET",
-      }),
-
-    {
-      useErrorBoundary: true,
-    },
+  const { data, isLoading, error, isError } = useQuery<ProductType>("product", () =>
+    fetcher({
+      path: `products/${id}`,
+      method: "GET",
+    }),
   );
 
   return {
@@ -49,7 +43,6 @@ export const useProducts = () => {
 
         return pages.length + 1;
       },
-      useErrorBoundary: true,
     },
   );
 
