@@ -28,6 +28,7 @@ export default function CartsPage() {
   const products = useSelector((state: RootState) => state.cart.products);
   const productCount = products.length;
   const isAllChecked = products.every((product) => product.checked);
+  const checkedProducts = products.filter((product) => product.checked);
   const totalPrice = products.reduce((acc, product) => {
     if (!product.checked) return acc;
     return acc + product.price * product.quantity!;
@@ -41,7 +42,6 @@ export default function CartsPage() {
     const isConfirmed = window.confirm("선택한 상품들을 삭제하시겠습니까?");
     if (!isConfirmed) return;
 
-    const checkedProducts = products.filter((product) => product.checked);
     checkedProducts.forEach((product) => deleteCart({ id: product.id }));
   };
 
@@ -87,7 +87,8 @@ export default function CartsPage() {
           title="결제예상금액"
           description="결제예상금액"
           amount={totalPrice}
-          actionButtonText={`주문하기 (${productCount}개)`}
+          actionButtonText={`주문하기 (${checkedProducts.length}개)`}
+          actionButtonDisabled={checkedProducts.length === 0}
           onClickActionButton={movePaymentPage}
         />
       </ProductCartContainer>

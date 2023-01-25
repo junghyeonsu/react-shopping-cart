@@ -5,6 +5,7 @@ interface PaymentInformationProps {
   description: string;
   amount: number;
   actionButtonText: string;
+  actionButtonDisabled: boolean;
   onClickActionButton: () => void;
 }
 
@@ -13,6 +14,7 @@ export default function PaymentInformation({
   description,
   amount,
   actionButtonText,
+  actionButtonDisabled,
   onClickActionButton,
 }: PaymentInformationProps) {
   return (
@@ -22,7 +24,11 @@ export default function PaymentInformation({
         <PaymentResultText>{description}</PaymentResultText>
         <PaymentResultText>{amount.toLocaleString()}원</PaymentResultText>
       </PaymentResultPriceContainer>
-      <PaymentResultOrderButton type="button" onClick={onClickActionButton}>
+      <PaymentResultOrderButton
+        disabled={actionButtonDisabled}
+        type="button"
+        onClick={onClickActionButton}
+      >
         {actionButtonText}
       </PaymentResultOrderButton>
     </PaymentResultSection>
@@ -107,5 +113,15 @@ const PaymentResultOrderButton = styled.button`
   :hover {
     cursor: pointer;
     background-color: #209491;
+  }
+
+  :disabled {
+    background-color: #dddddd;
+    color: #aaaaaa;
+    pointer-events: none;
+
+    :hover {
+      cursor: not-allowed;
+    }
   }
 `;

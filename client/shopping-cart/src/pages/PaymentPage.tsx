@@ -27,6 +27,13 @@ export default function PaymentPage() {
     0,
   );
 
+  const handlePayment = () => {
+    const isConfirmed = window.confirm("결제하시겠습니까?");
+    if (!isConfirmed) return;
+
+    navigate("/orders");
+  };
+
   return (
     <Container>
       <Title>주문 / 결제</Title>
@@ -46,7 +53,8 @@ export default function PaymentPage() {
           description="총 결제금액"
           amount={allProductsPrice}
           actionButtonText={`${allProductsPrice.toLocaleString()}원 결제하기`}
-          onClickActionButton={() => null}
+          actionButtonDisabled={false}
+          onClickActionButton={handlePayment}
         />
       </PaymentInfoContainer>
     </Container>
