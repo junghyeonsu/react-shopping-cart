@@ -115,6 +115,22 @@ const cartSlice = createSlice({
         products,
       };
     },
+
+    deleteCheckedProducts: (state: State) => {
+      const products = state.products.filter((product) => !product.checked);
+      return {
+        ...state,
+        products,
+      };
+    },
+
+    deleteProduct: (state: State, action: PayloadAction<number>) => {
+      const products = state.products.filter((product) => product.id !== action.payload);
+      return {
+        ...state,
+        products,
+      };
+    },
   },
 });
 
@@ -126,6 +142,8 @@ export const {
   changeQuantity,
   toggleProduct,
   toggleAllProducts,
+  deleteProduct,
+  deleteCheckedProducts,
 } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 export default cartSlice;

@@ -13,6 +13,7 @@ export const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       useErrorBoundary: true,
+      cacheTime: 0,
     },
   },
 });

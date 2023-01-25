@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useGetCarts } from "../api/cart";
+import { useDeleteCarts, useGetCarts } from "../api/cart";
 import CartProductItem from "../components/CartProductItem";
 import PaymentInformation from "../components/PaymentInformation";
 import type { RootState } from "../store";
-import { setProducts, toggleAllProducts } from "../store/slices/cart";
+import { deleteCheckedProducts, setProducts, toggleAllProducts } from "../store/slices/cart";
 
 export default function CartsPage() {
   const { data } = useGetCarts();
@@ -23,11 +23,6 @@ export default function CartsPage() {
     dispatch(setProducts(productsWithAmount));
   }, [data, dispatch]);
 
-  const checkedChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = event.target;
-    dispatch(toggleAllProducts(!checked));
-  };
-
   const products = useSelector((state: RootState) => state.cart.products);
   const productCount = products.length;
   const isAllChecked = products.every((product) => product.checked);
@@ -35,6 +30,21 @@ export default function CartsPage() {
     if (!product.checked) return acc;
     return acc + product.price * product.quantity!;
   }, 0);
+
+  const checkedChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    dispatch(toggleAllProducts(!checked));
+  };
+  const deleteCheckedProductHandler = () => {
+    const checkedProducts = products.filter((product) => product.checked);
+    checkedProducts.forEach((product) => deleteCart({ id: product.id }));
+  };
+
+  const { mutate: deleteCart } = useDeleteCarts({
+    onSuccess: () => {
+      dispatch(deleteCheckedProducts());
+    },
+  });
 
   return (
     <Container>
@@ -48,7 +58,9 @@ export default function CartsPage() {
               <Checkbox onChange={checkedChangeHandler} checked={isAllChecked} type="checkbox" />
               선택해제
             </ProductCartHeaderLabel>
-            <ProductCartHeaderDeleteButton>상품삭제</ProductCartHeaderDeleteButton>
+            <ProductCartHeaderDeleteButton onClick={deleteCheckedProductHandler}>
+              상품삭제
+            </ProductCartHeaderDeleteButton>
           </ProductCartHeader>
           <ProductListTitle>상품 ({productCount}개)</ProductListTitle>
 

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { useProducts } from "../api/product";
-import Product from "../components/Product";
+import ProductItem from "../components/ProductItem";
 
 export default function ProductsPage() {
   const { data, isLoading, isError } = useProducts();
@@ -17,7 +17,7 @@ export default function ProductsPage() {
   return (
     <Container>
       {data?.pages.map((products) =>
-        products.map((product) => <Product key={product.id} product={product} />),
+        products.map((product) => <ProductItem key={product.id} product={product} />),
       )}
     </Container>
   );

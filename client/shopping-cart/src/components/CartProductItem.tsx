@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
 
+import { useDeleteCarts } from "../api/cart";
 import {
   changeQuantity,
   decreaseQuantity,
+  deleteProduct,
   increaseQuantity,
   toggleProduct,
 } from "../store/slices/cart";
@@ -30,8 +32,15 @@ export default function CartProductItem({ product }: CartProductItemProps) {
     const { checked } = event.target;
     dispatch(toggleProduct({ id, checked: !checked }));
   };
+  const deleteHandler = () => deleteCart({ id });
 
   const calculatedPrice = (price * quantity!).toLocaleString();
+
+  const { mutate: deleteCart } = useDeleteCarts({
+    onSuccess: () => {
+      dispatch(deleteProduct(id));
+    },
+  });
 
   return (
     <Container key={id}>
@@ -41,7 +50,7 @@ export default function CartProductItem({ product }: CartProductItemProps) {
         <ItemName>{name}</ItemName>
       </InfoSection>
       <ModulateSection>
-        <ItemDeleteButton>
+        <ItemDeleteButton type="button" onClick={deleteHandler}>
           <DeleteIcon />
         </ItemDeleteButton>
         <ItemCountSection>

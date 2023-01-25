@@ -11,20 +11,19 @@ interface ProductProps {
   product: ProductType;
 }
 
-export default function Product({ product }: ProductProps) {
+export default function ProductItem({ product }: ProductProps) {
   const { id, name, price, imageUrl } = product;
-  const { mutate: postProductInCart } = usePostCarts({ product });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { mutate: postProductInCart } = usePostCarts({
+    onSuccess: () => {
+      dispatch(addProduct({ quantity: 1, ...product }));
+      navigate(`/carts`);
+    },
+  });
 
   const moveCartsPage = () => {
-    dispatch(addProduct({ quantity: 1, ...product }));
-    postProductInCart();
-    navigate(`/carts`, {
-      state: {
-        product,
-      },
-    });
+    postProductInCart({ product });
   };
 
   const moveProductDetailPage = () => {
