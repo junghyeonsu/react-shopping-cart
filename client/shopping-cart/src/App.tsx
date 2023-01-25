@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/Layout";
 import CartsPage from "./pages/CartsPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -13,7 +14,16 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* https://github.com/remix-run/react-router/issues/8610 */}
-        <Route index element={<Navigate to="/products" />} />
+
+        <Route
+          index
+          element={
+            <ErrorBoundary fallback={<div>에러가 발생했어요...!</div>}>
+              <Navigate to="/products" />
+            </ErrorBoundary>
+          }
+        />
+
         <Route path="products" element={<ProductsPage />} />
         <Route path="product/:id" element={<ProductDetailPage />} />
         <Route path="carts" element={<CartsPage />} />

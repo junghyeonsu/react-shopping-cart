@@ -4,14 +4,14 @@ import { useProducts } from "../api/product";
 import Product from "../components/Product";
 
 export default function ProductsPage() {
-  const { data, isLoading, error } = useProducts();
+  const { data, isLoading, isError } = useProducts();
+
+  if (isError) {
+    return <p>에러가 발생했습니다.</p>;
+  }
 
   if (isLoading) {
     return <p>로딩중...</p>;
-  }
-
-  if (error) {
-    return <p>에러가 발생했습니다.</p>;
   }
 
   return (

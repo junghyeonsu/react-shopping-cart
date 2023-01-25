@@ -10,14 +10,14 @@ export default function ProductDetailPage() {
     return <Navigate to="/products" />;
   }
 
-  const { data, isLoading, error } = useProduct(id);
+  const { data, isLoading, isError } = useProduct(id);
+
+  if (isError) {
+    return <p>에러가 발생했습니다.</p>;
+  }
 
   if (isLoading) {
     return <p>로딩중...</p>;
-  }
-
-  if (error) {
-    return <p>에러가 발생했습니다.</p>;
   }
 
   return (
