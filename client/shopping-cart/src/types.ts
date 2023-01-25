@@ -4,6 +4,7 @@ interface ProductType {
   name: string;
   imageUrl: string;
   quantity?: number;
+  checked?: boolean;
 }
 
 interface OrderDetailType {

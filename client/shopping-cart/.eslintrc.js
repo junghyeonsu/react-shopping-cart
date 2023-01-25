@@ -60,5 +60,6 @@ module.exports = {
         disallowTypeAnnotations: false,
       },
     ],
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
 };

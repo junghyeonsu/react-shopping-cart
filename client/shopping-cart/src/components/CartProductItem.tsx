@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
 
-import { changeQuantity, decreaseQuantity, increaseQuantity } from "../store/slices/cart";
+import {
+  changeQuantity,
+  decreaseQuantity,
+  increaseQuantity,
+  toggleProduct,
+} from "../store/slices/cart";
 import type { ProductType } from "../types";
 
 interface CartProductItemProps {
@@ -9,7 +14,7 @@ interface CartProductItemProps {
 }
 
 export default function CartProductItem({ product }: CartProductItemProps) {
-  const { id, imageUrl, name, price, quantity } = product;
+  const { id, imageUrl, name, price, quantity, checked } = product;
   const dispatch = useDispatch();
 
   const increaseQuantityHandler = () => dispatch(increaseQuantity(id));
@@ -18,14 +23,20 @@ export default function CartProductItem({ product }: CartProductItemProps) {
     const { value } = event.target;
     if (value === "") return;
     const quantity = Number(value);
-    if (quantity < 1) return;
+    if (quantity < 1 || quantity > 20) return;
     dispatch(changeQuantity({ id, quantity }));
   };
+  const checkedChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    dispatch(toggleProduct({ id, checked: !checked }));
+  };
+
+  const calculatedPrice = (price * quantity!).toLocaleString();
 
   return (
     <Container key={id}>
       <InfoSection>
-        <Checkbox type="checkbox" />
+        <Checkbox type="checkbox" onChange={checkedChangeHandler} checked={checked} />
         <ItemImage src={imageUrl} alt="fakeimage" />
         <ItemName>{name}</ItemName>
       </InfoSection>
@@ -34,13 +45,19 @@ export default function CartProductItem({ product }: CartProductItemProps) {
           <DeleteIcon />
         </ItemDeleteButton>
         <ItemCountSection>
-          <ItemCountInput onChange={quantityChangeHandler} value={quantity} type="number" />
+          <ItemCountInput
+            onChange={quantityChangeHandler}
+            max={20}
+            min={1}
+            value={quantity}
+            type="number"
+          />
           <ItemCountButtonContainer>
             <ItemCountButton onClick={increaseQuantityHandler}>▲</ItemCountButton>
             <ItemCountButton onClick={decreaseQuantityHandler}>▼</ItemCountButton>
           </ItemCountButtonContainer>
         </ItemCountSection>
-        <ItemPrice>{price?.toLocaleString()}원</ItemPrice>
+        <ItemPrice>{calculatedPrice}원</ItemPrice>
       </ModulateSection>
     </Container>
   );

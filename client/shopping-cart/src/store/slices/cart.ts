@@ -5,12 +5,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { ProductType } from "../../types";
 
 interface State {
-  checkedIds: string[];
   products: ProductType[];
 }
 
 const initialState: State = {
-  checkedIds: [],
   products: [],
 };
 
@@ -22,16 +20,25 @@ const cartSlice = createSlice({
       const products = action.payload.map((product) => ({
         ...product,
         quantity: product.quantity || 1,
+        checked: product.checked || true,
       }));
       return {
         ...state,
         products,
       };
     },
-    addProduct: (state: State, action: PayloadAction<ProductType>) => ({
-      ...state,
-      products: [...state.products, { ...action.payload, quantity: action.payload.quantity || 1 }],
-    }),
+    addProduct: (state: State, action: PayloadAction<ProductType>) => {
+      const addedProduct = {
+        ...action.payload,
+        quantity: action.payload.quantity || 1,
+        checked: action.payload.checked || true,
+      };
+
+      return {
+        ...state,
+        products: [...state.products, addedProduct],
+      };
+    },
     increaseQuantity: (state: State, action: PayloadAction<number>) => {
       const products = state.products.map((product) => {
         if (product.id === action.payload) {
@@ -80,10 +87,45 @@ const cartSlice = createSlice({
         products,
       };
     },
+    toggleProduct: (state: State, action: PayloadAction<{ id: number; checked: boolean }>) => {
+      const products = state.products.map((product) => {
+        if (product.id === action.payload.id) {
+          return {
+            ...product,
+            checked: !action.payload.checked,
+          };
+        }
+        return product;
+      });
+
+      return {
+        ...state,
+        products,
+      };
+    },
+
+    toggleAllProducts: (state: State, action: PayloadAction<boolean>) => {
+      const products = state.products.map((product) => ({
+        ...product,
+        checked: !action.payload,
+      }));
+
+      return {
+        ...state,
+        products,
+      };
+    },
   },
 });
 
-export const { addProduct, setProducts, increaseQuantity, decreaseQuantity, changeQuantity } =
-  cartSlice.actions;
+export const {
+  addProduct,
+  setProducts,
+  increaseQuantity,
+  decreaseQuantity,
+  changeQuantity,
+  toggleProduct,
+  toggleAllProducts,
+} = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 export default cartSlice;

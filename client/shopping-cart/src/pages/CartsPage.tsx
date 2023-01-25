@@ -6,13 +6,11 @@ import { useGetCarts } from "../api/cart";
 import CartProductItem from "../components/CartProductItem";
 import PaymentInformation from "../components/PaymentInformation";
 import type { RootState } from "../store";
-import { setProducts } from "../store/slices/cart";
+import { setProducts, toggleAllProducts } from "../store/slices/cart";
 
 export default function CartsPage() {
   const { data } = useGetCarts();
   const dispatch = useDispatch();
-
-  const products = useSelector((state: RootState) => state.cart.products);
 
   useEffect(() => {
     if (!data) return;
@@ -25,6 +23,19 @@ export default function CartsPage() {
     dispatch(setProducts(productsWithAmount));
   }, [data, dispatch]);
 
+  const checkedChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    dispatch(toggleAllProducts(!checked));
+  };
+
+  const products = useSelector((state: RootState) => state.cart.products);
+  const productCount = products.length;
+  const isAllChecked = products.every((product) => product.checked);
+  const totalPrice = products.reduce((acc, product) => {
+    if (!product.checked) return acc;
+    return acc + product.price * product.quantity!;
+  }, 0);
+
   return (
     <Container>
       <Title>장바구니</Title>
@@ -34,12 +45,12 @@ export default function CartsPage() {
         <ProductCartDetailSection>
           <ProductCartHeader>
             <ProductCartHeaderLabel>
-              <Checkbox type="checkbox" />
+              <Checkbox onChange={checkedChangeHandler} checked={isAllChecked} type="checkbox" />
               선택해제
             </ProductCartHeaderLabel>
             <ProductCartHeaderDeleteButton>상품삭제</ProductCartHeaderDeleteButton>
           </ProductCartHeader>
-          <ProductListTitle>상품 (2개)</ProductListTitle>
+          <ProductListTitle>상품 ({productCount}개)</ProductListTitle>
 
           <ProductList>
             {products.map((product) => (
@@ -51,8 +62,8 @@ export default function CartsPage() {
         <PaymentInformation
           title="결제예상금액"
           description="결제예상금액"
-          amount={21000}
-          actionButtonText="주문하기 (2개)"
+          amount={totalPrice}
+          actionButtonText={`주문하기 (${productCount}개)`}
           onClickActionButton={() => null}
         />
       </ProductCartContainer>
