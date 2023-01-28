@@ -1,36 +1,32 @@
 import styled from "@emotion/styled";
 
+import { useGetOrders } from "../api/order";
 import OrderResultItem from "../components/OrderResultItem";
 
 export default function OrdersPage() {
+  const { data } = useGetOrders();
+
+  if (!data) {
+    return <p>주문 내역이 없습니다.</p>;
+  }
+
   return (
     <Container>
       <Title>주문 / 결제</Title>
       <Divider />
       <OrderContainer>
-        <OrderProductContainer>
-          <OrderProductHeader>
-            <OrderProductHeaderTitle>주문 번호 1번</OrderProductHeaderTitle>
-          </OrderProductHeader>
-          <OrderProductList>
-            <OrderResultItem />
-            <OrderResultItem />
-            <OrderResultItem />
-            <OrderResultItem />
-          </OrderProductList>
-        </OrderProductContainer>
-
-        <OrderProductContainer>
-          <OrderProductHeader>
-            <OrderProductHeaderTitle>주문 번호 2번</OrderProductHeaderTitle>
-          </OrderProductHeader>
-          <OrderProductList>
-            <OrderResultItem />
-            <OrderResultItem />
-            <OrderResultItem />
-            <OrderResultItem />
-          </OrderProductList>
-        </OrderProductContainer>
+        {data.map((order) => (
+          <OrderProductContainer key={order.id}>
+            <OrderProductHeader>
+              <OrderProductHeaderTitle>주문 번호 {order.id}번</OrderProductHeaderTitle>
+            </OrderProductHeader>
+            <OrderProductList>
+              {order.orderDetails.map((orderDetail) => (
+                <OrderResultItem key={orderDetail.id} orderDetail={orderDetail} />
+              ))}
+            </OrderProductList>
+          </OrderProductContainer>
+        ))}
       </OrderContainer>
     </Container>
   );

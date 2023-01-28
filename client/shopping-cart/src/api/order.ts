@@ -1,5 +1,9 @@
-import type { ProductType } from "../types";
+import { useQuery } from "react-query";
+
+import type { OrderDetailType, ProductType } from "../types";
 import { fetcher, mutator } from "./common";
+
+const ORDER_KEY = "orders";
 
 export const usePostOrders = mutator(({ products }: { products: ProductType[] }) =>
   fetcher({
@@ -10,3 +14,11 @@ export const usePostOrders = mutator(({ products }: { products: ProductType[] })
     },
   }),
 );
+
+export const useGetOrders = () =>
+  useQuery<{ id: number; orderDetails: OrderDetailType[] }[]>(ORDER_KEY, () =>
+    fetcher({
+      path: "orders",
+      method: "GET",
+    }),
+  );
