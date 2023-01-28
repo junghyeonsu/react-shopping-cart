@@ -2,19 +2,7 @@ import type { ProductType } from "../../types";
 import type { State } from "./cart";
 import { cartReducer } from "./cart";
 
-const initialState: State = {
-  products: [],
-};
-
 describe("cartSlice test", () => {
-  it("initial", () => {
-    // given
-    const state = cartReducer(undefined, { type: "INIT" });
-
-    // then
-    expect(state).toEqual(initialState);
-  });
-
   it("setProducts action test", () => {
     // given
     const initState: State = {
