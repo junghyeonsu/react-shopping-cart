@@ -1,12 +1,30 @@
 import styled from "@emotion/styled";
-import { Navigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
+import { usePostCarts } from "../api/cart";
 import { useProduct } from "../api/product";
+import { addProduct } from "../store/slices/cart";
 import { isEmptyObject } from "../utils";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const { data, isLoading, isError } = useProduct(id!);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { mutate: postProductInCart } = usePostCarts({
+    onSuccess: () => {
+      if (!data) return;
+      dispatch(addProduct({ quantity: 1, ...data }));
+      navigate(`/carts`);
+    },
+  });
+
+  const handleGoCartButtonClick = () => {
+    if (!data) return;
+    postProductInCart({ product: data });
+  };
 
   if (isError) {
     return <p>에러가 발생했습니다.</p>;
@@ -16,7 +34,7 @@ export default function ProductDetailPage() {
     return <p>로딩중...</p>;
   }
 
-  if (isEmptyObject(data!)) {
+  if (isEmptyObject(data!) || !data) {
     console.error(`${id}값에 해당하는 데이터가 없습니다.`);
     return <Navigate to="/products" />;
   }
@@ -31,7 +49,9 @@ export default function ProductDetailPage() {
         <p>금액</p>
         <p>{data?.price?.toLocaleString()}원</p>
       </PriceBox>
-      <GoCartButton>장바구니에 담기</GoCartButton>
+      <GoCartButton type="button" onClick={handleGoCartButtonClick}>
+        장바구니에 담기
+      </GoCartButton>
     </Container>
   );
 }

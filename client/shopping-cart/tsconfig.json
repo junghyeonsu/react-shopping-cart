@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "types": [
-      "cypress",
-      "@testing-library/cypress",
+      "jest",
+      "@testing-library/jest-dom",
       "vite-plugin-svgr/client",
     ],
     "target": "ESNext",

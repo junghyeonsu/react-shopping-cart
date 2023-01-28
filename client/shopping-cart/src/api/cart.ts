@@ -15,21 +15,13 @@ export const usePostCarts = mutator(({ product }: { product: ProductType }) =>
   }),
 );
 
-export const useGetCarts = () => {
-  const { data, isLoading, isError, isSuccess } = useQuery<ProductType[]>(CART_KEY, () =>
+export const useGetCarts = () =>
+  useQuery<ProductType[]>(CART_KEY, () =>
     fetcher({
       path: "carts",
       method: "GET",
     }),
   );
-
-  return {
-    data,
-    isLoading,
-    isError,
-    isSuccess,
-  };
-};
 
 export const useDeleteCarts = mutator(({ id }: { id: number }) =>
   fetcher({

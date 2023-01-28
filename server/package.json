@@ -5,6 +5,7 @@
   "type": "commonjs",
   "license": "MIT",
   "devDependencies": {
+    "chokidar": "^3.5.3",
     "json-server": "^0.17.0",
     "lowdb": "^1.0.0"
   },
