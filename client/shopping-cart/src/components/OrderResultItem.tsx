@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
+import { usePostCarts } from "../api/cart";
+import { addProduct } from "../store/slices/cart";
 import type { OrderDetailType } from "../types";
 
 interface OrderResultItemProps {
@@ -8,6 +12,37 @@ interface OrderResultItemProps {
 
 export default function OrderResultItem({ orderDetail }: OrderResultItemProps) {
   const { name, price, imageUrl, quantity } = orderDetail;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { mutate: postProductInCart } = usePostCarts({
+    onSuccess: () => {
+      dispatch(
+        addProduct({
+          quantity: 1,
+          id: orderDetail.id,
+          name: orderDetail.name,
+          price: orderDetail.price,
+          imageUrl: orderDetail.imageUrl,
+          checked: true,
+        }),
+      );
+      navigate(`/carts`);
+    },
+  });
+
+  const moveCartsPage = () => {
+    postProductInCart({
+      product: {
+        id: orderDetail.id,
+        name: orderDetail.name,
+        price: orderDetail.price,
+        imageUrl: orderDetail.imageUrl,
+        checked: true,
+      },
+    });
+  };
+
   return (
     <ItemContainer>
       <InfoLeftSection>
@@ -19,7 +54,7 @@ export default function OrderResultItem({ orderDetail }: OrderResultItemProps) {
           </ItemAmount>
         </InfoSection>
       </InfoLeftSection>
-      <GoCartButton>장바구니</GoCartButton>
+      <GoCartButton onClick={moveCartsPage}>장바구니</GoCartButton>
     </ItemContainer>
   );
 }

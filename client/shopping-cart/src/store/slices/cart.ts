@@ -134,6 +134,8 @@ const cartSlice = createSlice({
         products,
       };
     },
+
+    clearCart: () => initialState,
   },
 });
 
@@ -147,6 +149,7 @@ export const {
   toggleAllProducts,
   deleteProduct,
   deleteCheckedProducts,
+  clearCart,
 } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 export default cartSlice;

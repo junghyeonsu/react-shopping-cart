@@ -1,24 +1,29 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { useDeleteCarts } from "../api/cart";
 import { usePostOrders } from "../api/order";
 import OrderProductItem from "../components/OrderProductItem";
 import PaymentInformation from "../components/PaymentInformation";
 import type { RootState } from "../store";
+import { clearCart } from "../store/slices/cart";
 
 export default function PaymentPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const products = useSelector((state: RootState) => state.cart.products);
+  const dispatch = useDispatch();
 
   const { mutate: postOrders } = usePostOrders({
     onSuccess: () => {
-      console.log("주문이 완료되었습니다.");
+      dispatch(clearCart());
       navigate("/orders");
     },
   });
+
+  const { mutate: deleteCartServer } = useDeleteCarts({});
 
   useEffect(() => {
     if (!location || !location.state) {
@@ -38,6 +43,7 @@ export default function PaymentPage() {
     const isConfirmed = window.confirm("결제하시겠습니까?");
     if (!isConfirmed) return;
 
+    checkedProducts.forEach((product) => deleteCartServer({ id: product.id }));
     postOrders({ products: checkedProducts });
   };
 
