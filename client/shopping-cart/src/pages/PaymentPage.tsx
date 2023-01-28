@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { usePostOrders } from "../api/order";
 import OrderProductItem from "../components/OrderProductItem";
 import PaymentInformation from "../components/PaymentInformation";
 import type { RootState } from "../store";
@@ -11,6 +12,14 @@ export default function PaymentPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const products = useSelector((state: RootState) => state.cart.products);
+
+  const { mutate: postOrders } = usePostOrders({
+    onSuccess: () => {
+      // eslint-disable-next-line no-console
+      console.log("주문이 완료되었습니다.");
+      navigate("/orders");
+    },
+  });
 
   useEffect(() => {
     if (!location || !location.state) {
@@ -31,7 +40,7 @@ export default function PaymentPage() {
     const isConfirmed = window.confirm("결제하시겠습니까?");
     if (!isConfirmed) return;
 
-    navigate("/orders");
+    postOrders({ products: checkedProducts });
   };
 
   return (

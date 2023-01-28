@@ -5,7 +5,7 @@ import { QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import { queryClient } from "./api/client";
+import { queryClient } from "./api/common";
 import App from "./App";
 import { store } from "./store";
 import global from "./styles/global";

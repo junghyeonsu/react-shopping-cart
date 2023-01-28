@@ -2,16 +2,11 @@ import styled from "@emotion/styled";
 import { Navigate, useParams } from "react-router-dom";
 
 import { useProduct } from "../api/product";
+import { isEmptyObject } from "../utils";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
-
-  if (!id) {
-    return <Navigate to="/products" />;
-  }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, isLoading, isError } = useProduct(id);
+  const { data, isLoading, isError } = useProduct(id!);
 
   if (isError) {
     return <p>에러가 발생했습니다.</p>;
@@ -19,6 +14,11 @@ export default function ProductDetailPage() {
 
   if (isLoading) {
     return <p>로딩중...</p>;
+  }
+
+  if (isEmptyObject(data!)) {
+    console.error(`${id}값에 해당하는 데이터가 없습니다.`);
+    return <Navigate to="/products" />;
   }
 
   return (
@@ -29,7 +29,7 @@ export default function ProductDetailPage() {
       <Divider />
       <PriceBox>
         <p>금액</p>
-        <p>{data?.price.toLocaleString()}원</p>
+        <p>{data?.price?.toLocaleString()}원</p>
       </PriceBox>
       <GoCartButton>장바구니에 담기</GoCartButton>
     </Container>

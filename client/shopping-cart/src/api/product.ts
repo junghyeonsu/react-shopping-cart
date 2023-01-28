@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from "react-query";
 
 import type { ProductType } from "../types";
-import { fetcher } from "./client";
+import { fetcher } from "./common";
 
 const PRODUCT_SIZE_AT_ONCE = 4;
 

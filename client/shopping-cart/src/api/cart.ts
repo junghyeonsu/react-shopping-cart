@@ -1,17 +1,9 @@
-import type { MutationFunction, UseMutationOptions } from "react-query";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 
 import type { ProductType } from "../types";
-import { fetcher } from "./client";
+import { fetcher, mutator } from "./common";
 
 const CART_KEY = "cart";
-
-const mutator =
-  <TData = unknown, TError = unknown, TVariables = void, TContext = unknown>(
-    mutationFn: MutationFunction<TData, TVariables>,
-  ) =>
-  (options?: UseMutationOptions<TData, TError, TVariables, TContext>) =>
-    useMutation<TData, TError, TVariables, TContext>(mutationFn, options);
 
 export const usePostCarts = mutator(({ product }: { product: ProductType }) =>
   fetcher({

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { QueryClient } from "react-query";
+import type { MutationFunction, UseMutationOptions } from "react-query";
+import { QueryClient, useMutation } from "react-query";
 
 interface FetchProps {
   path: string;
@@ -47,3 +48,10 @@ export const fetcher = async ({ path, method, params, body }: FetchProps) => {
     console.error(error);
   }
 };
+
+export const mutator =
+  <TData = unknown, TError = unknown, TVariables = void, TContext = unknown>(
+    mutationFn: MutationFunction<TData, TVariables>,
+  ) =>
+  (options?: UseMutationOptions<TData, TError, TVariables, TContext>) =>
+    useMutation<TData, TError, TVariables, TContext>(mutationFn, options);
