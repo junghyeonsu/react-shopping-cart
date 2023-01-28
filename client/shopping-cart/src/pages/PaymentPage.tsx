@@ -15,7 +15,6 @@ export default function PaymentPage() {
 
   const { mutate: postOrders } = usePostOrders({
     onSuccess: () => {
-      // eslint-disable-next-line no-console
       console.log("주문이 완료되었습니다.");
       navigate("/orders");
     },
@@ -23,7 +22,6 @@ export default function PaymentPage() {
 
   useEffect(() => {
     if (!location || !location.state) {
-      // eslint-disable-next-line no-console
       console.warn("잘못된 경로입니다.");
       navigate("/");
     }

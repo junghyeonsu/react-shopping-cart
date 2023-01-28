@@ -54,6 +54,7 @@ module.exports = {
     "no-undef": "off",
     "no-shadow": "off",
     "no-alert": "off",
+    "no-console": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
