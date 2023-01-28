@@ -19,8 +19,8 @@ export default function CartProductItem({ product }: CartProductItemProps) {
   const { id, imageUrl, name, price, quantity, checked } = product;
   const dispatch = useDispatch();
 
-  const increaseQuantityHandler = () => dispatch(increaseQuantity(id));
-  const decreaseQuantityHandler = () => dispatch(decreaseQuantity(id));
+  const increaseQuantityHandler = () => dispatch(increaseQuantity({ id }));
+  const decreaseQuantityHandler = () => dispatch(decreaseQuantity({ id }));
   const quantityChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     if (value === "") return;
@@ -28,9 +28,8 @@ export default function CartProductItem({ product }: CartProductItemProps) {
     if (quantity < 1 || quantity > 20) return;
     dispatch(changeQuantity({ id, quantity }));
   };
-  const checkedChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = event.target;
-    dispatch(toggleProduct({ id, checked: !checked }));
+  const checkedChangeHandler = () => {
+    dispatch(toggleProduct({ id }));
   };
   const deleteHandler = () => {
     const isConfirmed = window.confirm("해당 상품을 정말 삭제하시겠습니까?");

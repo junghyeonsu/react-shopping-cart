@@ -22,8 +22,6 @@ export default function CartsPage() {
       quantity: 1,
     }));
 
-    console.log(data);
-
     dispatch(setProducts(productsWithAmount));
   }, [data, dispatch]);
 
@@ -38,7 +36,7 @@ export default function CartsPage() {
 
   const checkedChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
-    dispatch(toggleAllProducts(!checked));
+    dispatch(toggleAllProducts(checked));
   };
   const deleteCheckedProductHandler = () => {
     const isConfirmed = window.confirm("선택한 상품들을 삭제하시겠습니까?");

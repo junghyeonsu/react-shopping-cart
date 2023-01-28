@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import type { ProductType } from "../../types";
 
-interface State {
+export interface State {
   products: ProductType[];
 }
 
@@ -39,9 +39,9 @@ const cartSlice = createSlice({
         products: [...state.products, addedProduct],
       };
     },
-    increaseQuantity: (state: State, action: PayloadAction<number>) => {
+    increaseQuantity: (state: State, action: PayloadAction<{ id: number }>) => {
       const products = state.products.map((product) => {
-        if (product.id === action.payload) {
+        if (product.id === action.payload.id && product.quantity && product.quantity < 20) {
           return {
             ...product,
             quantity: product.quantity ? product.quantity + 1 : 1,
@@ -55,15 +55,12 @@ const cartSlice = createSlice({
         products,
       };
     },
-    decreaseQuantity: (state: State, action: PayloadAction<number>) => {
+    decreaseQuantity: (state: State, action: PayloadAction<{ id: number }>) => {
       const products = state.products.map((product) => {
-        if (product.id === action.payload) {
-          const quantity = product.quantity ? product.quantity - 1 : 1;
-
+        if (product.id === action.payload.id && product.quantity && product.quantity > 1) {
           return {
             ...product,
-            quantity: product.quantity ? product.quantity - 1 : 1,
-            checked: product.checked && quantity === 0 ? false : product.checked,
+            quantity: product.quantity - 1,
           };
         }
         return product;
@@ -77,6 +74,20 @@ const cartSlice = createSlice({
     changeQuantity: (state: State, action: PayloadAction<{ id: number; quantity: number }>) => {
       const products = state.products.map((product) => {
         if (product.id === action.payload.id) {
+          if (action.payload.quantity < 1) {
+            return {
+              ...product,
+              quantity: 1,
+            };
+          }
+
+          if (action.payload.quantity > 20) {
+            return {
+              ...product,
+              quantity: 20,
+            };
+          }
+
           return {
             ...product,
             quantity: action.payload.quantity,
@@ -90,12 +101,12 @@ const cartSlice = createSlice({
         products,
       };
     },
-    toggleProduct: (state: State, action: PayloadAction<{ id: number; checked: boolean }>) => {
+    toggleProduct: (state: State, action: PayloadAction<{ id: number }>) => {
       const products = state.products.map((product) => {
         if (product.id === action.payload.id) {
           return {
             ...product,
-            checked: !action.payload.checked,
+            checked: !product.checked,
           };
         }
         return product;
@@ -110,7 +121,7 @@ const cartSlice = createSlice({
     toggleAllProducts: (state: State, action: PayloadAction<boolean>) => {
       const products = state.products.map((product) => ({
         ...product,
-        checked: !action.payload,
+        checked: action.payload,
       }));
 
       return {
